@@ -50,6 +50,11 @@
 				<span>好友列表</span>
 				<img src="../assets/img/home_10.png" alt="">
 			</div>
+			<div class="item" @click="refuel" v-if="show">
+				<img src="../assets/img/jiayou.png" alt="" class="pw">
+				<span>一键加油</span>
+				<img src="../assets/img/home_10.png" alt="">
+			</div>
 			<div class="item" @click="$router.push('/actList')" v-if="show">
 				<img src="../assets/img/home_6.png" alt="" class="pw">
 				<span>参与活动</span>
@@ -98,6 +103,9 @@
 			}
 		},
 		methods: {
+			refuel() {
+				window.location.href = 'https://st.czb365.com/v3_prod/?pft=98643999'
+			},	
 			// 是否有购买记录
 			getList() {
 				let data = {
