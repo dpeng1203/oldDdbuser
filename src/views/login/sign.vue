@@ -30,7 +30,7 @@
 
 <script>
 import { checkUserName,checkPhone,checkPassWord,checkCode,timeCountdown,checkPwd } from '../../utils'
-import { Toast,Icon,Popup } from 'vant'
+import { Toast,Icon,Popup,Dialog } from 'vant'
 export default {
     name: 'sign',
     components: {
@@ -93,7 +93,7 @@ export default {
                     }
                     this.$api.login.signQr(data).then( res => {
                         if(res.resultCode === 1) {
-                            Toast('注册成功！')
+                            Toast('推荐注册成功！')
                             // this.$router.push('/')
                             this.$emit('memLogin',1)
                         }
@@ -118,6 +118,17 @@ export default {
             }
             
         }
+    },
+    created() {
+        if(localStorage.recCode) {
+            Dialog.alert({
+                title: '提示',
+                message: '推荐人ID:' + ' ' + localStorage.recCode,
+            }).then(() => {
+            // on close
+            });
+        }
+        
     }
 
 }
