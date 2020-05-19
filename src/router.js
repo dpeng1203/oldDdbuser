@@ -193,51 +193,67 @@ export default new Router({
       name: "footer",
       component: Footer,
       children: [{
-              path: '/mall',
-              name: 'productList',
-              component: () => import("./views/product/mall.vue"),
-              meta: {
-                  title: '产品列表',
-                  keepAlive: true
-              }
-          },
-          
-          {
-              path: '/class',
-              name: 'class',
-              component: () => import("./views/class/class.vue"),
-              meta: {
-                  title: '全部分类',
-                  keepAlive: true
-              }
-          },
-          {
-              path: '/car',
-              name: 'car',
-              component: () => import("./views/car/car.vue"),
-              meta: {
-                  title: '购物车',
-                  keepAlive: true
-              }
-          },
-          {
-              path: '/mallMine',
-              name: 'mallMine',
-              component: () => import("./views/mallMine/mallMine.vue"),
-              meta: {
-                  title: '我的',
-                  keepAlive: true
-              }
-          }
+        path: '/mall',
+        name: 'productList',
+        component: () => import("./views/product/mall.vue"),
+        meta: {
+          title: '产品列表',
+          keepAlive: true
+        }
+      },
+
+      {
+        path: '/class',
+        name: 'class',
+        component: () => import("./views/class/class.vue"),
+        meta: {
+          title: '全部分类',
+          keepAlive: true
+        }
+      },
+      {
+        path: '/car',
+        name: 'car',
+        component: () => import("./views/car/car.vue"),
+        meta: {
+          title: '购物车',
+          keepAlive: true
+        }
+      },
+      {
+        path: '/mallMine',
+        name: 'mallMine',
+        component: () => import("./views/mallMine/mallMine.vue"),
+        meta: {
+          title: '我的',
+          keepAlive: true
+        }
+      }
       ]
-  },
-  {
+    },
+    {
       path: '/productDesc',
       name: 'productDesc',
       component: () => import("./views/product/productDesc.vue"),
       meta: {
-          title: '产品详情'
+        title: '产品详情'
       }
-  }
+    },
+    {
+      path: '/addressList',
+      name: 'addressList',
+      component: () => import("./views/mallMine/addressList.vue"),
+      meta: {
+        title: '地址列表'
+      }
+    },
+    {
+      path: '/addAddress',
+      name: 'addAddress',
+      component: () => import("./views/mallMine/addAddress.vue"),
+      meta: {
+        title: '新增地址'
+      }
+    },
   ]
 })
