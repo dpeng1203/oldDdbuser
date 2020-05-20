@@ -5,7 +5,7 @@
         <div class="wrap">
           <img src alt />
         </div>
-        <div class="name">18658846672</div>
+        <div class="name">{{phone}}</div>
       </div>
       <div class="order">
         <div class="item">
@@ -27,7 +27,7 @@
       </div>
     </div>
     <div class="other">
-      <div class="item" @click="$router.push('/addressList')">
+      <div class="item" @click="toAddr">
         <div class="wrap">
           <img src="../../assets/img/mine_1.png" alt />
         </div>
@@ -60,7 +60,18 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return{
+      phone: localStorage.phone
+    }
+  },
+  methods: {
+    toAddr() {
+            this.$router.push({path: '/addressList',query: {type: 2}})
+        },
+  }
+};
 </script>
 
 <style lang="less" scoped>

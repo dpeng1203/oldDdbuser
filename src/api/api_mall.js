@@ -20,4 +20,13 @@ export default {
     //修改地址
     modifyDeliveryAddress: p => $.post('/zqxry/shopping/modifyDeliveryAddress', p),
 
+     //默认地址
+     defaultAddr: p => $.post('/zqxry/shopping/service', stringify(p)),
+
+     // 下单
+     order: p => $.post('/zqxry/shopping/service', stringify(p)),
+
+     // 支付订单
+     orderPay: p => $.post('/zqxry/payPbBill', stringify(p)),
+
 }

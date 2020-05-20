@@ -13,7 +13,7 @@
     <div class="img-wrap">
       <img :src="item.pPicUrl" alt v-for="item in descImg" :key="item.pOrder" />
     </div>
-    <div class="btn" @click="toBuy">购 买</div>
+    <div class="btn" @click="toPay">购 买</div>
   </div>
 </template>
 
@@ -30,7 +30,8 @@ export default {
       swipeImg: [],
       descImg: [],
       pName: "",
-      pPrice2: 0
+      pPrice2: 0,
+      pCode: ''
     };
   },
   methods: {
@@ -46,13 +47,14 @@ export default {
         }
       });
     },
-    toBuy() {
-      //   Toast("购买商品！");
-    }
+    toPay() {
+          // this.$router.push({path:'/mallPay',query: {pCode: this.pCode,pName: this.pName,pPrice2: this.pPrice2}})
+      }
   },
   mounted() {
     this.pName = this.$route.query.pName;
     this.pPrice2 = this.$route.query.pPrice2;
+    this.pCode = this.$route.query.pCode;
     this.getDesc(this.$route.query.pCode);
   }
 };

@@ -33,6 +33,14 @@ export default new Router({
       }
     },
     {
+      path: '/signqr',
+      name: 'signqr',
+      component: () => import('./views/login/signqr.vue'),
+      meta: {
+        title: '推荐注册'
+      }
+    },
+    {
       path: '/cash',
       name: 'cash',
       // route level code-splitting
@@ -244,7 +252,8 @@ export default new Router({
       name: 'addressList',
       component: () => import("./views/mallMine/addressList.vue"),
       meta: {
-        title: '地址列表'
+        title: '地址列表',
+        keepAlive: true
       }
     },
     {
@@ -253,6 +262,15 @@ export default new Router({
       component: () => import("./views/mallMine/addAddress.vue"),
       meta: {
         title: '新增地址'
+      }
+    },
+    {
+      path: '/mallPay',
+      name: 'mallPay',
+      component: () => import("./views/product/mallPay.vue"),
+      meta: {
+        title: '新增地址',
+        keepAlive: true
       }
     },
   ]

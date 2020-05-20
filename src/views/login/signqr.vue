@@ -1,5 +1,10 @@
 <template>
   <div class="sign">
+    <div class="title">
+      推荐注册
+      <p v-if="recCode">(推荐人ID：{{recCode}})</p>
+      <p v-else class="title-tip">(推荐人不存在)</p>
+    </div>
     <div class="login-cont">
       <div class="input">
         <input type="text" placeholder="用户名：4-14字符" v-model="name" />
@@ -38,9 +43,6 @@ export default {
     [Icon.name]: Icon,
     [Popup.name]: Popup
   },
-  props: {
-    // recCode: [Number,String]
-  },
   data() {
     return {
       show: false,
@@ -54,7 +56,8 @@ export default {
         canGet: true,
         timer: null,
         waitTime: 60
-      }
+      },
+      recCode: ""
     };
   },
   computed: {
@@ -90,61 +93,64 @@ export default {
         checkPhone(this.phone) &&
         checkPwd(this.memPayPwd)
       ) {
-        if (localStorage.recCode) {
+        if (this.recCode) {
           let data = {
             memName: this.name,
             memMobile: this.phone,
             verifyCode: this.code,
             memPwd: this.password,
-            pMemCode: localStorage.recCode,
+            pMemCode: this.recCode,
             memPayPwd: this.memPayPwd
           };
           this.$api.login.signQr(data).then(res => {
             if (res.resultCode === 1) {
               Toast("推荐注册成功！");
-              // this.$router.push('/')
-              this.$emit("memLogin", 1);
+              this.$router.push("/");
             }
           });
         } else {
-          let data = {
-            memName: this.name,
-            memMobile: this.phone,
-            verifyCode: this.code,
-            memPwd: this.password,
-            memPayPwd: this.memPayPwd
-          };
-          this.$api.login.sign(data).then(res => {
-            if (res.resultCode === 1) {
-              Toast("注册成功！");
-              // this.$router.push('/')
-              this.$emit("memLogin", 1);
-            }
-          });
+          Toast("推荐人丢失，无法完成推荐注册！");
         }
       }
     }
+  },
+  created() {
+    if (this.$route.query.memCode) {
+      this.recCode = this.$route.query.memCode;
+    } else {
+      Dialog.alert({
+        title: "提示",
+        message: "推荐人丢失，请重新扫码！"
+      }).then(() => {
+        // on close
+      });
+    }
   }
-  // created() {
-  //   if (localStorage.recCode) {
-  //     Dialog.alert({
-  //       title: "提示",
-  //       message: "推荐人ID:" + " " + localStorage.recCode
-  //     }).then(() => {
-  //       // on close
-  //     });
-  //   }
-  // }
 };
 </script>
 
 <style scoped lang="less">
 @s: 0.0133rem;
 .sign {
+  background: #fff;
+  height: 100vh;
+  .title {
+    padding: 180 * @s 0;
+    text-align: center;
+    font-size: 56 * @s;
+    p {
+      font-size: 28 * @s;
+      color: #999;
+    }
+    .title-tip {
+      color: red;
+    }
+  }
   .login-cont {
     text-align: center;
     .input {
       position: relative;
+      margin: 0 100 * @s;
       input {
         width: 100%;
         // margin-top: 5*@s;
@@ -170,7 +176,7 @@ export default {
     }
     .btn {
       font-size: 24 * @s;
-      margin-top: 50 * @s;
+      margin-top: 200 * @s;
       display: inline-block;
       width: 220 * @s;
       line-height: 60 * @s;

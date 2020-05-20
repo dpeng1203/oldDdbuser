@@ -6,6 +6,7 @@
       default-tag-text="默认"
       @add="onAdd"
       @edit="onEdit"
+      @click-item="clickItem"
     />
     <!-- <div class="btn">添加收货地址</div> -->
     <div class="tip" v-if="list.length === 0">暂无地址</div>
@@ -21,7 +22,8 @@ export default {
   data() {
     return {
       chosenAddressId: 0,
-      list: []
+      list: [],
+      type: 0    //  1: 订单页面过来， 2：我的页面进来
     };
   },
   methods: {
@@ -35,6 +37,16 @@ export default {
         path: "/addAddress",
         query: { daCode: item.daCode }
       });
+      console.log(e)
+    },
+    clickItem(item,index) {
+        console.log(index)
+        if(this.type == 1) {
+          this.$router.push({path: '/mallPay',query: {addrInfo: item}})
+        }else if(this.type = 2) {
+           this.$router.push('/mallMine')
+        }
+        
     },
     getList() {
       let parms = {
@@ -50,7 +62,7 @@ export default {
             ele.tel = ele.daMobile;
             ele.address = ele.areaName + ele.daDetailAddress;
             if (ele.daAcquiesceType === 1) {
-              this.chosenAddressId = ele.daCode;
+              // this.chosenAddressId = ele.daCode;
               ele.isDefault = true;
             }
           });
@@ -59,7 +71,10 @@ export default {
       });
     }
   },
-  mounted() {
+  activated() {
+    if(this.$route.query.type) {
+      this.type = this.$route.query.type
+    }
     this.getList();
   }
 };

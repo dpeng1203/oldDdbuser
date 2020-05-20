@@ -104,7 +104,7 @@ export default {
     },
     created() {
         if(localStorage.memId) {
-            this.qrText = 'http://xry.dodohz.com/ddbxryuser/index.html#/?memCode=' + localStorage.memId
+            this.qrText = 'http://xry.dodohz.com/ddbxryuser/index.html#/signqr?memCode=' + localStorage.memId
             this.wxRegister()
         }else{
             Toast('推荐人信息不存在，请重新登陆！')
