@@ -252,16 +252,8 @@ export default new Router({
       name: 'addressList',
       component: () => import("./views/mallMine/addressList.vue"),
       meta: {
-        title: '地址列表',
+        title: '地址管理',
         keepAlive: true
-      }
-    },
-    {
-      path: '/addAddress',
-      name: 'addAddress',
-      component: () => import("./views/mallMine/addAddress.vue"),
-      meta: {
-        title: '新增地址'
       }
     },
     {
@@ -269,8 +261,7 @@ export default new Router({
       name: 'mallPay',
       component: () => import("./views/product/mallPay.vue"),
       meta: {
-        title: '新增地址',
-        keepAlive: true
+        title: '订单支付',
       }
     },
   ]

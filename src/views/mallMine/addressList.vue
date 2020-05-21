@@ -1,89 +1,26 @@
 <template>
-  <div class="list">
-    <van-address-list
-      v-model="chosenAddressId"
-      :list="list"
-      default-tag-text="默认"
-      @add="onAdd"
-      @edit="onEdit"
-      @click-item="clickItem"
-    />
-    <!-- <div class="btn">添加收货地址</div> -->
-    <div class="tip" v-if="list.length === 0">暂无地址</div>
-  </div>
+  <area-list @close='close' ></area-list>
 </template>
 
 <script>
-import { AddressList, Toast } from "vant";
+import areaList from '../../components/areaList'
 export default {
   components: {
-    [AddressList.name]: AddressList
+    areaList
   },
   data() {
     return {
-      chosenAddressId: 0,
-      list: [],
-      type: 0    //  1: 订单页面过来， 2：我的页面进来
+      
     };
   },
   methods: {
-    onAdd() {
-      //   Toast("新增地址");
-      this.$router.push("/addAddress");
+    close(item) {
+      this.$router.push('/mallMine')
     },
-    onEdit(item, index) {
-      //   Toast("编辑地址:" + item.id);
-      this.$router.push({
-        path: "/addAddress",
-        query: { daCode: item.daCode }
-      });
-      console.log(e)
-    },
-    clickItem(item,index) {
-        console.log(index)
-        if(this.type == 1) {
-          this.$router.push({path: '/mallPay',query: {addrInfo: item}})
-        }else if(this.type = 2) {
-           this.$router.push('/mallMine')
-        }
-        
-    },
-    getList() {
-      let parms = {
-        opType: 401,
-        xrymem_token_id: localStorage.memToken
-      };
-      this.$api.mall.addressList(parms).then(res => {
-        if (res.resultCode === 1) {
-          let arr = res.data;
-          arr.forEach(ele => {
-            ele.name = ele.daName;
-            ele.id = ele.daCode;
-            ele.tel = ele.daMobile;
-            ele.address = ele.areaName + ele.daDetailAddress;
-            if (ele.daAcquiesceType === 1) {
-              // this.chosenAddressId = ele.daCode;
-              ele.isDefault = true;
-            }
-          });
-          this.list = arr;
-        }
-      });
-    }
   },
-  activated() {
-    if(this.$route.query.type) {
-      this.type = this.$route.query.type
-    }
-    this.getList();
-  }
 };
 </script>
 
 <style lang="less" scoped>
 @s: 0.0133rem;
-.tip {
-  color: #999;
-  text-align: center;
-}
 </style>

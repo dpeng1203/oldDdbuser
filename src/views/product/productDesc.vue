@@ -48,6 +48,7 @@ export default {
       });
     },
     toPay() {
+      Toast('开发中...')
           // this.$router.push({path:'/mallPay',query: {pCode: this.pCode,pName: this.pName,pPrice2: this.pPrice2}})
       }
   },

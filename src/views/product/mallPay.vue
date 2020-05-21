@@ -1,5 +1,6 @@
 <template>
-    <div class="order">
+<div>
+    <div class="order" v-show="!showAreaList">
         <div class="contact" v-if="addrInfo.daMobile">
             <img src="../../assets/img/address.png" alt="">
             <div class="info">
@@ -46,18 +47,23 @@
             @submit="onSubmit"
         />
     </div>
+    <area-list @close='close' v-show="showAreaList"></area-list>
+</div>
 </template>
 
 <script>
 import { SubmitBar,Icon, Toast } from 'vant';
+import areaList from '../../components/areaList'
 export default {
     name: 'order',
     components: {
         [SubmitBar.name]: SubmitBar,
-        [Icon.name]: Icon
+        [Icon.name]: Icon,
+        areaList
     },
     data() {
         return{
+            showAreaList: false,
             pPrice2: '',
             pName: '',
             pCode: '',
@@ -72,8 +78,12 @@ export default {
         }
     },
     methods: {
+        close(item) {
+            this.addrInfo = item
+            this.showAreaList = false
+        },
         onSubmit() {
-            if(!this.addrInfo.daMobile) {
+            if(!this.addrInfo.daCode) {
                 Toast('请增加收货地址！')
                 return
             }
@@ -86,19 +96,10 @@ export default {
             };
             this.$api.mall.order(parms).then( res => {
                 if(res.resultCode ===1) {
-                    // this.addrInfo = res.data
                     let pbCode = res.data.pbCode
                     this.pay(pbCode)
                 }
             })
-            // this.orderInfo.poAttach.daCode = this.addrInfo.daCode
-            // this.orderInfo.orderList[0].podList[0].podRemark = this.podRemark
-            // debugger
-            // this.$api.order.orderPay(this.orderInfo).then( res => {
-            //     if(res.resultCode ===1) {
-            //         window.location.href = res.data
-            //     }
-            // })
         },
         pay(pbCode) {
             let parms = {
@@ -107,13 +108,12 @@ export default {
             }
             this.$api.mall.orderPay(parms).then(res => {
                 if(res.resultCode ===1) {
-                    // this.addrInfo = res.data
                     window.location.href = res.msg
                 }
             })
         },
         chooseAddr() {
-            this.$router.push({path: '/addressList',query: {type: 1}})
+            this.showAreaList = true
         },
         getDefault() {
             let parms = {
@@ -127,16 +127,12 @@ export default {
             })
         }
     },
-    activated() {
-        if(this.$route.query.pCode) {
-            this.pCode = this.$route.query.pCode
-            this.pName = this.$route.query.pName
-            this.pPrice2 = this.$route.query.pPrice2
-            //获取默认收货地址
-            this.getDefault()
-        }else if(this.$route.query.addrInfo.daCode) {
-            this.addrInfo = this.$route.query.addrInfo
-        }
+    mounted() {
+        this.pCode = this.$route.query.pCode
+        this.pName = this.$route.query.pName
+        this.pPrice2 = this.$route.query.pPrice2
+        //获取默认收货地址
+        this.getDefault()
     }
 }
 </script>

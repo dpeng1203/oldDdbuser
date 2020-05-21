@@ -68,8 +68,8 @@ export default {
   },
   methods: {
     toAddr() {
-            this.$router.push({path: '/addressList',query: {type: 2}})
-        },
+      this.$router.push({path: '/addressList'})
+    },
   }
 };
 </script>
