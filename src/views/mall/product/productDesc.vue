@@ -48,9 +48,9 @@ export default {
       });
     },
     toPay() {
-      Toast('开发中...')
-          // this.$router.push({path:'/mallPay',query: {pCode: this.pCode,pName: this.pName,pPrice2: this.pPrice2}})
-      }
+      // Toast('开发中...')
+      this.$router.push({path:'/mallPay',query: {pCode: this.pCode,pName: this.pName,pPrice2: this.pPrice2}})
+    }
   },
   mounted() {
     this.pName = this.$route.query.pName;
@@ -82,7 +82,7 @@ export default {
     left: 0;
     right: 0;
     bottom: 0;
-    background: #9abef7;
+    background: #D11529;
     line-height: 100 * @s;
     text-align: center;
     color: #fff;

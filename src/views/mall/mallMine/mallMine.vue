@@ -9,19 +9,19 @@
       </div>
       <div class="order">
         <div class="item">
-          <img src="../../assets/img/order_1.png" alt />
+          <img src="../../../assets/img/order_1.png" alt />
           <p>全部订单</p>
         </div>
         <div class="item">
-          <img src="../../assets/img/order_2.png" alt />
+          <img src="../../../assets/img/order_2.png" alt />
           <p>待发货</p>
         </div>
         <div class="item">
-          <img src="../../assets/img/order_3.png" alt />
+          <img src="../../../assets/img/order_3.png" alt />
           <p>待收货</p>
         </div>
         <div class="item">
-          <img src="../../assets/img/order_4.png" alt />
+          <img src="../../../assets/img/order_4.png" alt />
           <p>待付款</p>
         </div>
       </div>
@@ -29,21 +29,21 @@
     <div class="other">
       <div class="item" @click="toAddr">
         <div class="wrap">
-          <img src="../../assets/img/mine_1.png" alt />
+          <!-- <img src="../../assets/img/mine_1.png" alt /> -->
         </div>
         <span class="name">我的收货地址</span>
         <span>></span>
       </div>
       <div class="item">
         <div class="wrap">
-          <img src="../../assets/img/mine_4.png" alt style="width: 0.43rem" />
+          <!-- <img src="../../assets/img/mine_4.png" alt style="width: 0.43rem" /> -->
         </div>
         <span class="name">我的足迹</span>
         <span>></span>
       </div>
       <div class="item">
         <div class="wrap">
-          <img src="../../assets/img/mine_2.png" alt style="width: 0.44rem" />
+          <!-- <img src="../../assets/img/mine_2.png" alt style="width: 0.44rem" /> -->
         </div>
         <span class="name">客服中心</span>
         <span>></span>
@@ -80,7 +80,7 @@ export default {
   background: #f2f2f2;
   .top {
     height: 667 * @s;
-    background-image: url("../../assets/img/mine_bg.jpg");
+    background-image: url("../../../assets/img/mine_bg.jpg");
     background-size: 100% 100%;
     .info {
       display: flex;

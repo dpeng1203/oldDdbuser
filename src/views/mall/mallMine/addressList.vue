@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import areaList from '../../components/areaList'
+import areaList from '../../../components/areaList'
 export default {
   components: {
     areaList
