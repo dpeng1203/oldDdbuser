@@ -2,7 +2,7 @@
 <div>
     <div class="order" v-show="!showAreaList">
         <div class="contact" v-if="addrInfo.daMobile">
-            <img src="../../assets/img/address.png" alt="">
+            <img src="../../../assets/img/address.png" alt="">
             <div class="info">
                 <div class="phone">{{addrInfo.daMobile}}</div>
                 <div class="name">收货人：{{addrInfo.daName}}</div>
@@ -14,7 +14,7 @@
             <van-icon name="add-o" size="0.5rem"/>
             <span>增加收货地址</span>
         </div>
-        <div class="line"><img src="../../assets/img/line.png" alt=""></div>
+        <div class="line"><img src="../../../assets/img/line.png" alt=""></div>
         <div class="sum">
             <div class="item">
                 <div class="name">商品名称</div>
@@ -53,7 +53,7 @@
 
 <script>
 import { SubmitBar,Icon, Toast } from 'vant';
-import areaList from '../../components/areaList'
+import areaList from '../../../components/areaList'
 export default {
     name: 'order',
     components: {

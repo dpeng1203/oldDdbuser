@@ -203,7 +203,7 @@ export default new Router({
       children: [{
         path: '/mall',
         name: 'productList',
-        component: () => import("./views/product/mall.vue"),
+        component: () => import("./views/mall/product/mall.vue"),
         meta: {
           title: '产品列表',
           keepAlive: true
@@ -213,7 +213,7 @@ export default new Router({
       {
         path: '/class',
         name: 'class',
-        component: () => import("./views/class/class.vue"),
+        component: () => import("./views/mall/class/class.vue"),
         meta: {
           title: '全部分类',
           keepAlive: true
@@ -222,7 +222,7 @@ export default new Router({
       {
         path: '/car',
         name: 'car',
-        component: () => import("./views/car/car.vue"),
+        component: () => import("./views/mall/car/car.vue"),
         meta: {
           title: '购物车',
           keepAlive: true
@@ -231,7 +231,7 @@ export default new Router({
       {
         path: '/mallMine',
         name: 'mallMine',
-        component: () => import("./views/mallMine/mallMine.vue"),
+        component: () => import("./views/mall/mallMine/mallMine.vue"),
         meta: {
           title: '我的',
           keepAlive: true
@@ -242,7 +242,7 @@ export default new Router({
     {
       path: '/productDesc',
       name: 'productDesc',
-      component: () => import("./views/product/productDesc.vue"),
+      component: () => import("./views/mall/product/productDesc.vue"),
       meta: {
         title: '产品详情'
       }
@@ -250,7 +250,7 @@ export default new Router({
     {
       path: '/addressList',
       name: 'addressList',
-      component: () => import("./views/mallMine/addressList.vue"),
+      component: () => import("./views/mall/mallMine/addressList.vue"),
       meta: {
         title: '地址管理',
         keepAlive: true
@@ -259,7 +259,7 @@ export default new Router({
     {
       path: '/mallPay',
       name: 'mallPay',
-      component: () => import("./views/product/mallPay.vue"),
+      component: () => import("./views/mall/product/mallPay.vue"),
       meta: {
         title: '订单支付',
       }
