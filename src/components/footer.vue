@@ -4,9 +4,9 @@
       <router-view v-if="$route.meta.keepAlive"></router-view>
     </keep-alive>
     <router-view v-if="!$route.meta.keepAlive"></router-view>
-    <van-tabbar route safe-area-inset-bottom active-color="#20A1AF" inactive-color="#7A7A7A">
+    <van-tabbar route safe-area-inset-bottom active-color="#D11529" inactive-color="#666666">
       <van-tabbar-item replace to="/mall" icon="wap-home-o">首页</van-tabbar-item>
-      <van-tabbar-item replace to="/class" icon="apps-o">全部分类</van-tabbar-item>
+      <!-- <van-tabbar-item replace to="/class" icon="apps-o">全部分类</van-tabbar-item> -->
       <van-tabbar-item replace to="/car" icon="shopping-cart-o">购物车</van-tabbar-item>
       <van-tabbar-item replace to="/mallMine" icon="manager-o">我的</van-tabbar-item>
     </van-tabbar>

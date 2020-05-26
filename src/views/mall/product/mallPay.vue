@@ -11,23 +11,34 @@
             <div class="right" @click="chooseAddr">></div>
         </div>
         <div class="add-addr" @click="chooseAddr" v-if="!addrInfo.daMobile">
-            <van-icon name="add-o" size="0.5rem"/>
+            <van-icon name="add-o" size=".8rem"/>
             <span>增加收货地址</span>
         </div>
-        <div class="line"><img src="../../../assets/img/line.png" alt=""></div>
+        <!-- <div class="line"><img src="../../../assets/img/line.png" alt=""></div> -->
+        <!-- <div class="product" >
+          <img :src="item.pMainPic" alt />
+          <div class="info">
+            <div class="title">{{item.pName}}</div>
+            <div class="desc">{{item.desc}}</div>
+            <div class="pro-price">
+              <span class="ori-price">￥{{item.pPrice1}}</span>
+              <span class="price">￥{{item.pPrice2}}</span>
+            </div>
+          </div>
+        </div> -->
         <div class="sum">
             <div class="item">
-                <div class="name">商品名称</div>
-                <div class="value" >{{pName}}</div>
+                <div class="name">订单总结</div>
+                <!-- <div class="value" >{{pName}}</div> -->
             </div>
             <div class="item">
                 <div class="name">商品价格</div>
                 <div class="value" >￥{{pPrice2}}</div>
             </div>
-            <div class="item">
+            <!-- <div class="item">
                 <div class="name">商品数量</div>
                 <div class="value" >x 1</div>
-            </div>
+            </div> -->
             <div class="item">
                 <div class="name">优惠金额</div>
                 <div class="value" >- ￥0</div>
@@ -36,9 +47,9 @@
                 <div class="name">运费</div>
                 <div class="value">￥0.00</div>
             </div>
-            <div class="item">
+            <div class="item total">
                 <div class="name"></div>
-                <div class="value">合计：<span>￥{{pPrice2}}</span></div>
+                <div class="value">总价：<span>￥{{pPrice2}}</span></div>
             </div>
         </div>
         <van-submit-bar
@@ -141,13 +152,13 @@ export default {
 <style lang="less" scoped>
 @s: 0.0133rem;
 .order{
-    padding-top: 50*@s ;
     background: #fff;
+    height: 100vh;
     .contact{
-        margin-top: 10*@s;
-        padding: 0 36*@s 0 30*@s;
+        padding: 50*@s 36*@s 35*@s 30*@s;
         display: flex;
         align-items: flex-start;
+        background: #F7F7F7;
         img{
             width: 20*@s;
             margin-top: 28*@s;
@@ -182,16 +193,51 @@ export default {
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 30*@s 0 20*@s;
-        background: #fff;
+        padding: 60*@s 0;
+        background: #F7F7F7;
         span{
             margin-left: 20*@s;
+            font-weight: bold;
         }
     }
     .line{
         padding: 0 9*@s;
         height: 2px;
-        margin-top: 35*@s;
+        // margin-top: 35*@s;
+    }
+    .product {
+        padding: 30 * @s;
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid #f2f2f2;
+        img {
+            width: 160 * @s;
+            height: 160 * @s;
+        }
+        .info {
+            display: inline-block;
+            margin-left: 30 * @s;
+            .title {
+                font-size: 24 * @s;
+                // font-weight: bold;
+            }
+            .desc {
+                color: #808080;
+                margin-top: 10 * @s;
+                font-size: 24 * @s;
+                margin-bottom: 10 * @s;
+            }
+            .ori-price {
+                font-size: 28 * @s;
+                margin-right: 10 * @s;
+                text-decoration: line-through;
+            }
+            .price {
+                color: #ed0c17;
+                font-size: 32 * @s;
+                font-weight: bold;
+            }
+        }
     }
     .title{
         line-height: 90*@s;
@@ -204,15 +250,16 @@ export default {
         }
     }
     .sum{
-        padding: 0 30*@s;
+        padding: 0 40*@s;
         font-size: 24*@s;
         background: #fff;
         margin-top: 30*@s;
         .item{
             display: flex;
             align-items: center;
-            border-bottom: 1px solid #f2f2f2;
+            font-weight: bold;
             height: 80*@s;
+            // padding-top: 35*@s;
             .name{
                 flex: 1;
             }
@@ -228,6 +275,14 @@ export default {
                 margin-left: 15*@s;
                 color: #333;
             }
+            &:first-child{
+                border-top: 1px solid #C8C8C8;
+                font-size: 26*@s;
+            }
+        }
+        .total{
+            border-top: 1px solid #C8C8C8;
+            padding-top: 30*@s;
         }
     }
 }

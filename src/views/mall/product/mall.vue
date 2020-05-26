@@ -30,7 +30,28 @@
             <div class="buy-btn" @click="toDesc(item)">马上抢购</div>
           </div>
         </div>
-        
+      </div>
+    </div>
+    <!-- 多多甄选 -->
+    <div class="img-title" style="marginTop: .133rem">
+      <img src="../../../assets/img/ddzx.png" alt="">
+    </div>
+    <div class="list">
+      <div class="item" v-for="item in list" :key="item.pCode" >
+        <img :src="item.pMainPic" alt />
+        <div class="wrap">
+          <p>{{item.pName}}</p>
+          <div class="desc">{{item.desc}}</div>
+          <div class="rate">
+            <span>商品热度</span>
+            <van-rate v-model="value" />
+          </div>
+          <div class="o-price">￥ {{item.pPrice1}}</div>
+          <div class="btn">
+            <div class="price"><span class="coin">￥</span>{{item.pPrice2}} <span>[DODO优选价]</span> </div>
+            <div class="buy-btn btn2" @click="toDesc(item)">马上抢购</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -158,6 +179,9 @@ export default {
         color: #fff;
         font-size: 30*@s;
         border-radius: 10*@s;
+      }
+      .btn2{
+        background: #92DFE7;
       }
     }
   }
