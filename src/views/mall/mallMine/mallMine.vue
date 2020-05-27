@@ -19,15 +19,15 @@
     <div class="order">
       <div class="item">
         <img src="../../../assets/img/order_2.png" alt />
-        <p>待发货</p>
+        <p>待支付</p>
       </div>
       <div class="item">
         <img src="../../../assets/img/order_3.png" alt />
-        <p>待收货</p>
+        <p>待发货</p>
       </div>
       <div class="item">
         <img src="../../../assets/img/order_4.png" alt />
-        <p>待付款</p>
+        <p>待收货</p>
       </div>
     </div>
     <div class="other">

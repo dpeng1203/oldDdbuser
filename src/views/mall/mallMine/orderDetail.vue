@@ -1,31 +1,24 @@
 <template>
-<div>
-    <div class="order" v-show="!showAreaList">
-        <div class="contact" v-if="addrInfo.daMobile">
+    <div class="order-detail">
+        <div class="contact">
             <img src="../../../assets/img/address.png" alt="">
             <div class="info">
-                <div class="phone">{{addrInfo.daMobile}}</div>
-                <div class="name">收货人：{{addrInfo.daName}}</div>
-                <p>收货地址：{{addrInfo.areaName + addrInfo.daDetailAddress}}</p>
+                <div class="phone">{{daMobile}}</div>
+                <div class="name">收货人：{{daName}}</div>
+                <p>收货地址：{{aAddress}}</p>
             </div>
-            <div class="right" @click="chooseAddr">></div>
         </div>
-        <div class="add-addr" @click="chooseAddr" v-if="!addrInfo.daMobile">
-            <van-icon name="add-o" size=".8rem"/>
-            <span>增加收货地址</span>
-        </div>
-        <!-- <div class="line"><img src="../../../assets/img/line.png" alt=""></div> -->
-        <div class="product" >
-          <img :src="item.pMainPic" alt />
-          <div class="info">
-            <div class="title">{{item.pName}}</div>
-            <div class="desc">{{item.desc}}</div>
-            <div class="pro-price">
-              <span class="ori-price">￥{{item.pPrice1}}</span>
-              <span class="price">￥{{item.pPrice3}}</span>
-              <span class="num">x 1</span>
+        <div class="cont" >
+            <img :src="item.pMainPic" alt />
+            <div class="info">
+                <div class="title">{{item.pName}}</div>
+                <div class="desc">{{item.desc}}</div>
+                <div class="pro-price">
+                <span class="ori-price">￥{{item.pPrice2}}</span>
+                <span class="price">￥{{item.pPrice3}}</span>
+                <span class="num">x 1</span>
+                </div>
             </div>
-          </div>
         </div>
         <div class="sum">
             <div class="item">
@@ -48,69 +41,38 @@
                 <div class="value">总价：<span>￥{{item.pPrice3}}</span></div>
             </div>
         </div>
-        <van-submit-bar
-            :price="item.pPrice3*100"
-            button-text="提交订单"
-            @submit="onSubmit"
-        />
+        <div class="foot" v-if="status == 99">
+            <van-submit-bar
+                :price="item.pPrice3*100"
+                button-text="支付"
+                @submit="onSubmit"
+            />
+        </div>
     </div>
-    <area-list @close='close' v-show="showAreaList"></area-list>
-</div>
 </template>
 
 <script>
 import { SubmitBar,Icon, Toast } from 'vant';
-import areaList from '../../../components/areaList'
 export default {
-    name: 'order',
     components: {
         [SubmitBar.name]: SubmitBar,
         [Icon.name]: Icon,
-        areaList
     },
     data() {
         return{
-            showAreaList: false,
-            pCode: '',
-            podRemark: '',              //卖家留言
-            merCode: localStorage.merCode,  
-            orderInfo: {},
-            proInfo: {},
-            addrInfo: {
-                daCode: '',
-                daMobile: ''
-            },
+            pbCode: '',
+            status: '',
+            daName: '',
+            daMobile: '',
+            aAddress: '',
             item: {}
         }
     },
     methods: {
-        close(item) {
-            this.addrInfo = item
-            this.showAreaList = false
-        },
         onSubmit() {
-            if(!this.addrInfo.daCode) {
-                Toast('请增加收货地址！')
-                return
-            }
-            let parms = {
-                opType: 404,
-                pCode: this.pCode,
-                pCount: 1,
-                daCode: this.addrInfo.daCode,
-                xrymem_token_id: localStorage.memToken
-            };
-            this.$api.mall.order(parms).then( res => {
-                if(res.resultCode ===1) {
-                    let pbCode = res.data.pbCode
-                    this.pay(pbCode)
-                }
-            })
-        },
-        pay(pbCode) {
             let parms = {
                 priceType: 0,
-                pbCode
+                pbCode: this.pbCode
             }
             this.$api.mall.orderPay(parms).then(res => {
                 if(res.resultCode ===1) {
@@ -118,21 +80,22 @@ export default {
                 }
             })
         },
-        chooseAddr() {
-            this.showAreaList = true
-        },
-        getDefault() {
+        getDetail(pbCode) {
             let parms = {
-                opType: 402,
-                xrymem_token_id: localStorage.memToken
-            };
-            this.$api.mall.defaultAddr(parms).then( res => {
-                if(res.resultCode ===1 && res.data) {
-                    this.addrInfo = res.data
+                opType: 406,
+                xrymem_token_id: localStorage.memToken,
+                pbCode
+            }
+            this.$api.mall.order(parms).then(res => {
+                if(res.resultCode === 1) {
+                    this.daName = res.data.daName
+                    this.daMobile = res.data.daMobile
+                    this.aAddress = res.data.aAddress
+                    this.getProDetail(res.data.pCode)
                 }
             })
         },
-        getDesc(pCode) {
+        getProDetail(pCode) {
             this.$api.mall.homeDesc({ pCode }).then(res => {
                 if (res.resultCode === 1) {
                     this.item = res.data
@@ -140,21 +103,20 @@ export default {
                     this.item.f_price = (this.item.pPrice2-this.item.pPrice3).toFixed(2)
                 }
             });
-        },
+        }
+
     },
     mounted() {
-        this.pCode = this.$route.query.pCode
-        //获取默认收货地址
-        this.getDefault()
-        this.getDesc(this.pCode);
+        this.pbCode = this.$route.query.pbCode
+        this.status = this.$route.query.status
+        this.getDetail(this.pbCode)
     }
 }
 </script>
 
-
 <style lang="less" scoped>
 @s: 0.0133rem;
-.order{
+.order-detail{
     background: #fff;
     min-height: 100vh;
     .contact{
@@ -192,23 +154,8 @@ export default {
             color: #808080;
         }
     }
-    .add-addr{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 60*@s 0;
-        background: #F7F7F7;
-        span{
-            margin-left: 20*@s;
-            font-weight: bold;
-        }
-    }
-    .line{
-        padding: 0 9*@s;
-        height: 2px;
-        // margin-top: 35*@s;
-    }
-    .product {
+    .cont{
+        // padding-top: 18*@s;
         padding: 30 * @s;
         display: flex;
         align-items: center;
@@ -248,16 +195,6 @@ export default {
             }
         }
     }
-    // .title{
-    //     line-height: 90*@s;
-    //     background: #fff;
-    //     margin-top: 15*@s;
-    //     color: #333;
-    //     img{
-    //         width: 32*@s;
-    //         margin: 30*@s 10*@s 0 30*@s;
-    //     }
-    // }
     .sum{
         padding: 0 40*@s;
         font-size: 24*@s;
