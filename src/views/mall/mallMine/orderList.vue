@@ -38,7 +38,7 @@
                 </div>
                 <div class="foot" >
                     <div class="btn" v-if="item.status === 0 || item.status === 3" @click="toDetail(item.pbCode,item.status)">去付款</div>
-                    <div class="btn" v-if="item.status === 2 && item.pbType !== 0">查看物流</div>
+                    <div class="btn" v-if="item.status === 2 && item.pbType !== 0" @click="toLog(item.pbCode)">查看物流</div>
                     <div class="btn" v-if="item.status === 2" @click="toDetail(item.pbCode,item.status)">查看详情</div>
                     <!-- <div class="btn" v-if="item.status === 1">去付款</div> -->
                 </div>
@@ -135,6 +135,9 @@ export default {
         toDetail(pbCode,status) {
             this.$router.push({path: '/orderDetail',query: {pbCode,status}})
         },
+        toLog(pbCode) {
+            this.$router.push({path: '/logSteps',query: {pbCode}})
+        }
     },
     mounted() {
         let prdStatus = this.$route.query.id

@@ -288,5 +288,13 @@ export default new Router({
         title: '相关政策',
       }
     },
+    {
+      path: '/logSteps',
+      name: 'logSteps',
+      component: () => import("./views/mall/mallMine/logSteps.vue"),
+      meta: {
+        title: '物流信息',
+      }
+    },
   ]
 })

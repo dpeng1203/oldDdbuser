@@ -14,17 +14,26 @@
     <div class="img-wrap">
       <img :src="item.pPicUrl" alt v-for="item in descImg" :key="item.pOrder" />
     </div>
-    <div class="btn" @click="toPay">购 买</div>
+    <!-- <div class="btn" @click="toPay">购 买</div> -->
+    <van-goods-action>
+      <van-goods-action-icon icon="wap-home-o" text="主页" @click="$router.push('/mall')"/>
+      <van-goods-action-icon icon="cart-o" text="购物车"  />
+      <van-goods-action-button type="warning" text="加入购物车" />
+      <van-goods-action-button type="danger" text="立即购买" @click="toPay"/>
+    </van-goods-action>
   </div>
 </template>
 
 <script>
-import { Swipe, SwipeItem, Icon, Toast } from "vant";
+import { Swipe, SwipeItem, Icon, Toast,GoodsAction, GoodsActionIcon, GoodsActionButton } from "vant";
 export default {
   components: {
     [Swipe.name]: Swipe,
     [SwipeItem.name]: SwipeItem,
-    [Icon.name]: Icon
+    [GoodsAction.name]: GoodsAction,
+    [Icon.name]: Icon,
+    [GoodsActionIcon.name]: GoodsActionIcon,
+    [GoodsActionButton.name]: GoodsActionButton,
   },
   data() {
     return {
