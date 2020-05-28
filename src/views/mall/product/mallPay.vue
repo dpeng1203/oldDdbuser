@@ -16,14 +16,24 @@
         </div>
         <!-- <div class="line"><img src="../../../assets/img/line.png" alt=""></div> -->
         <div class="product" >
+<<<<<<< HEAD
           <img :src="pMainPic" alt />
+=======
+          <img :src="item.pMainPic" alt />
+>>>>>>> 3c40e221e4de485f3698dc4198f26bfafeef1521
           <div class="info">
             <div class="title">{{pName}}</div>
             <div class="desc">{{desc}}</div>
             <div class="pro-price">
+<<<<<<< HEAD
               <span class="ori-price">￥{{pPrice2}}</span>
               <span class="price">￥{{pPrice3}}</span>
               <span class="num"><van-stepper v-model="num" /></span>
+=======
+              <span class="ori-price">￥{{item.pPrice1}}</span>
+              <span class="price">￥{{item.pPrice3}}</span>
+              <span class="num">x 1</span>
+>>>>>>> 3c40e221e4de485f3698dc4198f26bfafeef1521
             </div>
           </div>
         </div>
@@ -33,11 +43,19 @@
             </div>
             <div class="item">
                 <div class="name">商品价格</div>
+<<<<<<< HEAD
                 <div class="value" >￥{{allTotal}}</div>
             </div>
             <div class="item">
                 <div class="name">优惠金额</div>
                 <div class="value" >- ￥{{f_price}}</div>
+=======
+                <div class="value" >￥{{item.pPrice2}}</div>
+            </div>
+            <div class="item">
+                <div class="name">优惠金额</div>
+                <div class="value" >- ￥{{item.f_price}}</div>
+>>>>>>> 3c40e221e4de485f3698dc4198f26bfafeef1521
             </div>
             <div class="item">
                 <div class="name">运费</div>
@@ -45,11 +63,19 @@
             </div>
             <div class="item total">
                 <div class="name"></div>
+<<<<<<< HEAD
                 <div class="value">总价：<span>￥{{total}}</span></div>
             </div>
         </div>
         <van-submit-bar
             :price="total*100"
+=======
+                <div class="value">总价：<span>￥{{item.pPrice3}}</span></div>
+            </div>
+        </div>
+        <van-submit-bar
+            :price="item.pPrice3*100"
+>>>>>>> 3c40e221e4de485f3698dc4198f26bfafeef1521
             button-text="提交订单"
             @submit="onSubmit"
         />
@@ -82,6 +108,7 @@ export default {
                 daCode: '',
                 daMobile: ''
             },
+<<<<<<< HEAD
             pName: '',
             pMainPic: '',
             pPrice2: 0,
@@ -97,6 +124,9 @@ export default {
             this.allTotal = (this.pPrice2*val).toFixed(2)
             this.total = (this.pPrice3*val).toFixed(2)
             this.f_price = (this.allTotal-this.total).toFixed(2)
+=======
+            item: {}
+>>>>>>> 3c40e221e4de485f3698dc4198f26bfafeef1521
         }
 
     },
@@ -152,6 +182,7 @@ export default {
         getDesc(pCode) {
             this.$api.mall.homeDesc({ pCode }).then(res => {
                 if (res.resultCode === 1) {
+<<<<<<< HEAD
                     this.pName = res.data.pName
                     this.pMainPic = res.data.pMainPic
                     this.pPrice2 = res.data.pPrice2
@@ -162,6 +193,11 @@ export default {
                         this.desc = JSON.parse(res.data.pDesc)[0].desc;
                     }
                     this.f_price = (this.pPrice2-this.pPrice3).toFixed(2)
+=======
+                    this.item = res.data
+                    this.item.desc = JSON.parse(res.data.pDesc)[0].desc;
+                    this.item.f_price = (this.item.pPrice2-this.item.pPrice3).toFixed(2)
+>>>>>>> 3c40e221e4de485f3698dc4198f26bfafeef1521
                 }
             });
         },

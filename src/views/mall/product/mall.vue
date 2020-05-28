@@ -34,7 +34,11 @@
     </div>
     <!-- 多多甄选 -->
     <div class="img-title" style="marginTop: .133rem" v-if="list2.length!==0">
+<<<<<<< HEAD
       <img src="../../../assets/img/mall_list_title.png" alt="">
+=======
+      <img src="../../../assets/img/ddzx.png" alt="">
+>>>>>>> 3c40e221e4de485f3698dc4198f26bfafeef1521
     </div>
     <div class="list">
       <div class="item" v-for="item in list2" :key="item.pCode" >
@@ -83,9 +87,19 @@ export default {
           
         if (res.resultCode === 1) {
           res.data.data.forEach(ele => {
+<<<<<<< HEAD
             if(ele.pDesc) {
               ele.desc = JSON.parse(ele.pDesc)[0].desc;
             }
+          });
+          this.list = res.data.data.filter(ele => {
+            return ele.pType === 0
+          });
+          this.list2 = res.data.data.filter(ele => {
+            return ele.pType === 1
+=======
+            ele.desc = JSON.parse(ele.pDesc)[0].desc;
+>>>>>>> 3c40e221e4de485f3698dc4198f26bfafeef1521
           });
           this.list = res.data.data.filter(ele => {
             return ele.pType === 0

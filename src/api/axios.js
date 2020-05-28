@@ -23,7 +23,7 @@ axios.interceptors.request.use(
 )
 // http响应拦截器
 axios.interceptors.response.use(response => {
-  console.log(response)
+  // console.log(response)
   if(response.data.resultCode == -6) {
     localStorage.clear()
     router.push('/')
