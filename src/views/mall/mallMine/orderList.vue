@@ -16,7 +16,6 @@
                 <div class="list-title">
                     <span class="name">优选专区</span>
                     <span class="icon"><van-icon name="arrow" color="#666" /></span>
-<<<<<<< HEAD
                     <span class="state" v-if="item.status === 0 || item.status === 3">待付款</span>
                     <span class="state" v-if="item.status === 2 && item.pbType === 0">待发货</span>
                     <span class="state" v-if="item.status === 2 && item.pbType === 1">待收货</span>
@@ -31,41 +30,16 @@
                         <!-- <span class="ori-price">￥{{item.pPrice}}</span> -->
                         <span class="price">￥{{item.price}}</span>
                         <span class="num">x {{item.pCount}}</span>
-=======
-                    <span class="state" v-if="item.status === 99">待付款</span>
-                    <span class="state" v-if="item.status === 0">待发货</span>
-                    <span class="state" v-if="item.status === 1">待收货</span>
-                    <span class="state" v-if="item.status === 2">已签收</span>
-                </div>
-                <div class="cont" >
-                    <img :src="item.pMainPic" alt />
-                    <div class="info">
-                        <div class="title">{{item.pName}}</div>
-                        <div class="desc">{{item.desc}}</div>
-                        <div class="pro-price">
-                        <span class="ori-price">￥{{item.pPrice2}}</span>
-                        <span class="price">￥{{item.pPrice3}}</span>
-                        <span class="num">x 1</span>
->>>>>>> 3c40e221e4de485f3698dc4198f26bfafeef1521
                         </div>
                     </div>
                 </div>
                 <div class="wrapper">
-<<<<<<< HEAD
                     共{{item.pCount}}件商品&nbsp;&nbsp;合计：<span>￥ {{item.tatol}}</span> (含运费￥0.00)
                 </div>
                 <div class="foot" >
                     <div class="btn" v-if="item.status === 0 || item.status === 3" @click="toDetail(item.pbCode,item.status)">去付款</div>
                     <div class="btn" v-if="item.status === 2 && item.pbType !== 0">查看物流</div>
                     <div class="btn" v-if="item.status === 2" @click="toDetail(item.pbCode,item.status)">查看详情</div>
-=======
-                    共1件商品&nbsp;&nbsp;合计：<span>￥ {{item.pPrice3}}</span> (含运费￥0.00)
-                </div>
-                <div class="foot" @click="toDetail(item.pbCode,item.status)">
-                    <div class="btn" v-if="item.status === 99">去付款</div>
-                    <div class="btn" v-if="item.status === 0 || item.status === 1">查看详情</div>
-                    <div class="btn" v-if="item.status === 2">查看详情</div>
->>>>>>> 3c40e221e4de485f3698dc4198f26bfafeef1521
                     <!-- <div class="btn" v-if="item.status === 1">去付款</div> -->
                 </div>
             </div>
@@ -105,38 +79,22 @@ export default {
         handChange(name,title) {
             if(name === 0) {
                 this.parms.prdStatus = -1
-<<<<<<< HEAD
                 this.parms.pageNum = 0
-=======
-                this.parms.pageNum = 1
->>>>>>> 3c40e221e4de485f3698dc4198f26bfafeef1521
                 this.finished = false
                 this.list = []
             }else if(name === 1) {
                 this.parms.prdStatus = 99
-<<<<<<< HEAD
                 this.parms.pageNum = 0
-=======
-                this.parms.pageNum = 1
->>>>>>> 3c40e221e4de485f3698dc4198f26bfafeef1521
                 this.finished = false
                 this.list = []
             }else if(name === 2) {
                 this.parms.prdStatus = 0
-<<<<<<< HEAD
                 this.parms.pageNum = 0
-=======
-                this.parms.pageNum = 1
->>>>>>> 3c40e221e4de485f3698dc4198f26bfafeef1521
                 this.finished = false
                 this.list = []
             }else if(name === 3) {
                 this.parms.prdStatus = 1
-<<<<<<< HEAD
                 this.parms.pageNum = 0
-=======
-                this.parms.pageNum = 1
->>>>>>> 3c40e221e4de485f3698dc4198f26bfafeef1521
                 this.finished = false
                 this.list = []
             }
@@ -153,7 +111,6 @@ export default {
                 // 加载状态结束
                 this.loading = false;
                 if (res.resultCode === 1) {
-<<<<<<< HEAD
                     if(res.data.data.length != 0) {
                         res.data.data.forEach(ele => {
                             if(ele.productInfo.pDesc) {
@@ -162,22 +119,6 @@ export default {
                             ele.tatol = (ele.price * ele.pCount).toFixed(2)
                         })
                     }
-=======
-                    // if(res.data.data.length != 0) {
-                        res.data.data.forEach(ele => {
-                            let pCode = ele.pCode
-                            this.$api.mall.homeDesc({ pCode }).then(res => {
-                                if (res.resultCode === 1) {
-                                    this.$set(ele,'pName',res.data.pName)
-                                    this.$set(ele,'pPrice2',res.data.pPrice2)
-                                    this.$set(ele,'pPrice3',res.data.pPrice3)
-                                    this.$set(ele,'pMainPic',res.data.pMainPic)
-                                    this.$set(ele,'desc',JSON.parse(res.data.pDesc)[0].desc)
-                                }
-                            });
-                        })
-                    // }
->>>>>>> 3c40e221e4de485f3698dc4198f26bfafeef1521
                     if(this.parms.pageNum == 1) {
                         this.list = res.data.data
                     }else{
@@ -196,7 +137,6 @@ export default {
         },
     },
     mounted() {
-<<<<<<< HEAD
         let prdStatus = this.$route.query.id
         this.parms.prdStatus = prdStatus
         // this.getList()
@@ -209,9 +149,6 @@ export default {
         }else if(prdStatus == 1) {
             this.active = 3
         }
-=======
-        // this.getList()
->>>>>>> 3c40e221e4de485f3698dc4198f26bfafeef1521
     }
 }
 </script>
