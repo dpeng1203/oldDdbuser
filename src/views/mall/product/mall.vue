@@ -12,28 +12,6 @@
       </van-swipe-item>
     </van-swipe>
     <div class="img-title">
-      <img src="../../../assets/img/mall_list_title.png" alt="">
-    </div>
-    <div class="list">
-      <div class="item" v-for="item in list" :key="item.pCode" >
-        <img :src="item.pMainPic" alt />
-        <div class="wrap">
-          <p>{{item.pName}}</p>
-          <div class="desc">{{item.desc}}</div>
-          <div class="rate">
-            <span>商品热度</span>
-            <van-rate v-model="value" />
-          </div>
-          <div class="o-price">￥ {{item.pPrice1}}</div>
-          <div class="btn">
-            <div class="price"><span class="coin">￥</span>{{item.pPrice2}} <span>[DODO优选价]</span> </div>
-            <div class="buy-btn" @click="toDesc(item)">马上抢购</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- 多多甄选 -->
-    <div class="img-title" style="marginTop: .133rem">
       <img src="../../../assets/img/ddzx.png" alt="">
     </div>
     <div class="list">
@@ -48,7 +26,29 @@
           </div>
           <div class="o-price">￥ {{item.pPrice1}}</div>
           <div class="btn">
-            <div class="price"><span class="coin">￥</span>{{item.pPrice2}} <span>[DODO优选价]</span> </div>
+            <div class="price"><span class="coin">￥</span>{{item.pPrice3}} <span>[DODO优选价]</span> </div>
+            <div class="buy-btn" @click="toDesc(item)">马上抢购</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 多多甄选 -->
+    <div class="img-title" style="marginTop: .133rem" v-if="list2.length!==0">
+      <img src="../../../assets/img/mall_list_title.png" alt="">
+    </div>
+    <div class="list">
+      <div class="item" v-for="item in list2" :key="item.pCode" >
+        <img :src="item.pMainPic" alt />
+        <div class="wrap">
+          <p>{{item.pName}}</p>
+          <div class="desc">{{item.desc}}</div>
+          <div class="rate">
+            <span>商品热度</span>
+            <van-rate v-model="value" />
+          </div>
+          <div class="o-price">￥ {{item.pPrice1}}</div>
+          <div class="btn">
+            <div class="price"><span class="coin">￥</span>{{item.pPrice3}} <span>[DODO优选价]</span> </div>
             <div class="buy-btn btn2" @click="toDesc(item)">马上抢购</div>
           </div>
         </div>
@@ -69,6 +69,7 @@ export default {
   data() {
     return {
       list: [],
+      list2: [],  
       value: 5   //商品热度
     };
   },
@@ -79,10 +80,18 @@ export default {
         pageSize: 20
       };
       this.$api.mall.homeList(parms).then(res => {
+          
         if (res.resultCode === 1) {
-          this.list = res.data.data;
-          this.list.forEach(ele => {
-            ele.desc = JSON.parse(ele.pDesc)[0].desc;
+          res.data.data.forEach(ele => {
+            if(ele.pDesc) {
+              ele.desc = JSON.parse(ele.pDesc)[0].desc;
+            }
+          });
+          this.list = res.data.data.filter(ele => {
+            return ele.pType === 0
+          });
+          this.list2 = res.data.data.filter(ele => {
+            return ele.pType === 1
           });
         }
       });
@@ -90,7 +99,7 @@ export default {
     toDesc(item) {
       this.$router.push({
         path: "/productDesc",
-        query: { pCode: item.pCode, pName: item.pName, pPrice2: item.pPrice2 }
+        query: { pCode: item.pCode }
       });
     }
   },

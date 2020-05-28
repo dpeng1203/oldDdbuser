@@ -11,23 +11,23 @@
         <div class="id">会员ID: {{memId}}</div>
       </div>
     </div>
-    <div class="order-title">
+    <div class="order-title" @click="toOrder(-1)">
         <span class="my">我的订单</span>
         <span class="check">查看全部订单</span>
         <van-icon name="arrow" color="#666" />
       </div>
     <div class="order">
-      <div class="item">
+      <div class="item" @click="toOrder(99)">
         <img src="../../../assets/img/order_2.png" alt />
+        <p>待支付</p>
+      </div>
+      <div class="item" @click="toOrder(0)">
+        <img src="../../../assets/img/order_3.png" alt />
         <p>待发货</p>
       </div>
-      <div class="item">
-        <img src="../../../assets/img/order_3.png" alt />
-        <p>待收货</p>
-      </div>
-      <div class="item">
+      <div class="item" @click="toOrder(1)">
         <img src="../../../assets/img/order_4.png" alt />
-        <p>待付款</p>
+        <p>待收货</p>
       </div>
     </div>
     <div class="other">
@@ -39,14 +39,14 @@
         <span class="name">我的足迹</span>
         <van-icon name="arrow" color="#666" />
       </div>
-      <div class="item">
+      <div class="item" @click="tpRule">
         <span class="name">相关政策</span>
         <van-icon name="arrow" color="#666" />
       </div>
-      <div class="item">
+      <a class="item" href="tel:400-999-8212">
         <span class="name">客服中心</span>
         <van-icon name="arrow" color="#666" />
-      </div>
+      </a>
       <!-- <div class="item">
                 <div class="wrap">
                     <img src="../../assets/img/mine_3.png" alt="" style="width: 0.43rem">
@@ -74,6 +74,12 @@ export default {
     toAddr() {
       this.$router.push({path: '/addressList'})
     },
+    toOrder(id) {
+      this.$router.push({path: '/orderList',query: {id}})
+    },
+    tpRule() {
+      this.$router.push({path: '/rule'})
+    }
   }
 };
 </script>

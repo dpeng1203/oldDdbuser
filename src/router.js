@@ -264,5 +264,29 @@ export default new Router({
         title: '订单支付',
       }
     },
+    {
+      path: '/orderList',
+      name: 'orderList',
+      component: () => import("./views/mall/mallMine/orderList.vue"),
+      meta: {
+        title: '订单列表',
+      }
+    },
+    {
+      path: '/orderDetail',
+      name: 'orderDetail',
+      component: () => import("./views/mall/mallMine/orderDetail.vue"),
+      meta: {
+        title: '订单详情',
+      }
+    },
+    {
+      path: '/rule',
+      name: 'rule',
+      component: () => import("./views/mall/mallMine/rule.vue"),
+      meta: {
+        title: '相关政策',
+      }
+    },
   ]
 })

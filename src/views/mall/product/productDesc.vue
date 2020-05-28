@@ -7,7 +7,8 @@
     </van-swipe>
     <div class="prod">
       <p class="name">{{pName}}</p>
-      <p class="price">￥ {{pPrice2}}</p>
+      <p class="price">￥ {{pPrice3}}</p>
+      <p class="o-price">市场价：<span>￥ {{pPrice2}}</span> </p>
     </div>
     <div class="tip">商品详情</div>
     <div class="img-wrap">
@@ -31,6 +32,7 @@ export default {
       descImg: [],
       pName: "",
       pPrice2: 0,
+      pPrice3: 0,
       pCode: ''
     };
   },
@@ -38,10 +40,13 @@ export default {
     getDesc(pCode) {
       this.$api.mall.homeDesc({ pCode }).then(res => {
         if (res.resultCode === 1) {
-          this.swipeImg = res.data.filter(ele => {
+          this.pPrice3 = res.data.pPrice3
+          this.pPrice2 = res.data.pPrice2
+          this.pName = res.data.pName
+          this.swipeImg = res.data.productDetail.filter(ele => {
             return ele.pType === 1;
           });
-          this.descImg = res.data.filter(ele => {
+          this.descImg = res.data.productDetail.filter(ele => {
             return ele.pType === 0;
           });
         }
@@ -49,12 +54,10 @@ export default {
     },
     toPay() {
       // Toast('开发中...')
-      this.$router.push({path:'/mallPay',query: {pCode: this.pCode,pName: this.pName,pPrice2: this.pPrice2}})
+      this.$router.push({path:'/mallPay',query: {pCode: this.pCode}})
     }
   },
   mounted() {
-    this.pName = this.$route.query.pName;
-    this.pPrice2 = this.$route.query.pPrice2;
     this.pCode = this.$route.query.pCode;
     this.getDesc(this.$route.query.pCode);
   }
@@ -70,6 +73,20 @@ export default {
     background: #fff;
     // border-top: 1px solid #CBCBCB;
     padding: 20 * @s 0;
+    .name{
+      font-weight: bold;
+    }
+    .price{
+      font-size: 40*@s;
+      color: #D11529;
+    }
+    .o-price{
+      color: #020B16;
+      font-size: 20*@s;
+      span{
+        text-decoration: line-through;
+      }
+    }
   }
   .tip {
     line-height: 100 * @s;

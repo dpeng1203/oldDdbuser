@@ -15,33 +15,29 @@
             <span>增加收货地址</span>
         </div>
         <!-- <div class="line"><img src="../../../assets/img/line.png" alt=""></div> -->
-        <!-- <div class="product" >
-          <img :src="item.pMainPic" alt />
+        <div class="product" >
+          <img :src="pMainPic" alt />
           <div class="info">
-            <div class="title">{{item.pName}}</div>
-            <div class="desc">{{item.desc}}</div>
+            <div class="title">{{pName}}</div>
+            <div class="desc">{{desc}}</div>
             <div class="pro-price">
-              <span class="ori-price">￥{{item.pPrice1}}</span>
-              <span class="price">￥{{item.pPrice2}}</span>
+              <span class="ori-price">￥{{pPrice2}}</span>
+              <span class="price">￥{{pPrice3}}</span>
+              <span class="num"><van-stepper v-model="num" /></span>
             </div>
           </div>
-        </div> -->
+        </div>
         <div class="sum">
             <div class="item">
                 <div class="name">订单总结</div>
-                <!-- <div class="value" >{{pName}}</div> -->
             </div>
             <div class="item">
                 <div class="name">商品价格</div>
-                <div class="value" >￥{{pPrice2}}</div>
+                <div class="value" >￥{{allTotal}}</div>
             </div>
-            <!-- <div class="item">
-                <div class="name">商品数量</div>
-                <div class="value" >x 1</div>
-            </div> -->
             <div class="item">
                 <div class="name">优惠金额</div>
-                <div class="value" >- ￥0</div>
+                <div class="value" >- ￥{{f_price}}</div>
             </div>
             <div class="item">
                 <div class="name">运费</div>
@@ -49,11 +45,11 @@
             </div>
             <div class="item total">
                 <div class="name"></div>
-                <div class="value">总价：<span>￥{{pPrice2}}</span></div>
+                <div class="value">总价：<span>￥{{total}}</span></div>
             </div>
         </div>
         <van-submit-bar
-            :price="pPrice2*100"
+            :price="total*100"
             button-text="提交订单"
             @submit="onSubmit"
         />
@@ -63,20 +59,20 @@
 </template>
 
 <script>
-import { SubmitBar,Icon, Toast } from 'vant';
+import { SubmitBar,Icon, Toast,Stepper  } from 'vant';
 import areaList from '../../../components/areaList'
 export default {
     name: 'order',
     components: {
         [SubmitBar.name]: SubmitBar,
         [Icon.name]: Icon,
-        areaList
+        areaList,
+        [Stepper.name]: Stepper
     },
     data() {
         return{
+            num: 1,
             showAreaList: false,
-            pPrice2: '',
-            pName: '',
             pCode: '',
             podRemark: '',              //卖家留言
             merCode: localStorage.merCode,  
@@ -85,8 +81,24 @@ export default {
             addrInfo: {
                 daCode: '',
                 daMobile: ''
-            }
+            },
+            pName: '',
+            pMainPic: '',
+            pPrice2: 0,
+            pPrice3: 0,
+            desc: '',
+            f_price: 0,   //  优惠金额
+            allTotal: 0,
+            total: 0,
         }
+    },
+    watch: {
+        num(val) {
+            this.allTotal = (this.pPrice2*val).toFixed(2)
+            this.total = (this.pPrice3*val).toFixed(2)
+            this.f_price = (this.allTotal-this.total).toFixed(2)
+        }
+
     },
     methods: {
         close(item) {
@@ -101,7 +113,7 @@ export default {
             let parms = {
                 opType: 404,
                 pCode: this.pCode,
-                pCount: 1,
+                pCount: this.num,
                 daCode: this.addrInfo.daCode,
                 xrymem_token_id: localStorage.memToken
             };
@@ -136,14 +148,29 @@ export default {
                     this.addrInfo = res.data
                 }
             })
-        }
+        },
+        getDesc(pCode) {
+            this.$api.mall.homeDesc({ pCode }).then(res => {
+                if (res.resultCode === 1) {
+                    this.pName = res.data.pName
+                    this.pMainPic = res.data.pMainPic
+                    this.pPrice2 = res.data.pPrice2
+                    this.allTotal = res.data.pPrice2
+                    this.pPrice3 = res.data.pPrice3
+                    this.total = res.data.pPrice3
+                    if(res.data.pDesc) {
+                        this.desc = JSON.parse(res.data.pDesc)[0].desc;
+                    }
+                    this.f_price = (this.pPrice2-this.pPrice3).toFixed(2)
+                }
+            });
+        },
     },
     mounted() {
         this.pCode = this.$route.query.pCode
-        this.pName = this.$route.query.pName
-        this.pPrice2 = this.$route.query.pPrice2
         //获取默认收货地址
         this.getDefault()
+        this.getDesc(this.pCode);
     }
 }
 </script>
@@ -153,7 +180,7 @@ export default {
 @s: 0.0133rem;
 .order{
     background: #fff;
-    height: 100vh;
+    min-height: 100vh;
     .contact{
         padding: 50*@s 36*@s 35*@s 30*@s;
         display: flex;
@@ -209,18 +236,13 @@ export default {
         padding: 30 * @s;
         display: flex;
         align-items: center;
-        border-bottom: 1px solid #f2f2f2;
         img {
             width: 160 * @s;
             height: 160 * @s;
         }
         .info {
-            display: inline-block;
+            flex: 1;
             margin-left: 30 * @s;
-            .title {
-                font-size: 24 * @s;
-                // font-weight: bold;
-            }
             .desc {
                 color: #808080;
                 margin-top: 10 * @s;
@@ -237,18 +259,29 @@ export default {
                 font-size: 32 * @s;
                 font-weight: bold;
             }
+            .pro-price{
+                display: flex;
+                align-items: center;
+                .price{
+                    flex: 1
+                }
+                .num{
+                    font-size: 22*@s;
+                    color: #999;
+                }
+            }
         }
     }
-    .title{
-        line-height: 90*@s;
-        background: #fff;
-        margin-top: 15*@s;
-        color: #333;
-        img{
-            width: 32*@s;
-            margin: 30*@s 10*@s 0 30*@s;
-        }
-    }
+    // .title{
+    //     line-height: 90*@s;
+    //     background: #fff;
+    //     margin-top: 15*@s;
+    //     color: #333;
+    //     img{
+    //         width: 32*@s;
+    //         margin: 30*@s 10*@s 0 30*@s;
+    //     }
+    // }
     .sum{
         padding: 0 40*@s;
         font-size: 24*@s;
