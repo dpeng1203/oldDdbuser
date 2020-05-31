@@ -205,7 +205,7 @@ export default new Router({
         name: 'productList',
         component: () => import("./views/mall/product/mall.vue"),
         meta: {
-          title: '产品列表',
+          title: 'DODO优选',
           keepAlive: true
         }
       },

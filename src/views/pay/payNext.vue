@@ -79,6 +79,7 @@
         <van-popup
             v-model="showKeyboard"
             position="top"
+            :style="{ height: '32%' }" 
         >   
             <div class="pw-box">
                 <input type="password" pattern="[0-9]*" placeholder="请输入支付密码" v-model="value" class="pw">
@@ -522,6 +523,7 @@ export default {
         .btn-pw{
             margin-top: 80*@s;
             width: 280*@s;
+            background: #89d3a2;
         }
     }
 </style>

@@ -17,8 +17,8 @@
     <!-- <div class="btn" @click="toPay">购 买</div> -->
     <van-goods-action>
       <van-goods-action-icon icon="wap-home-o" text="主页" @click="$router.push('/mall')"/>
-      <van-goods-action-icon icon="cart-o" text="购物车"  />
-      <van-goods-action-button type="warning" text="加入购物车" />
+      <van-goods-action-icon icon="cart-o" text="购物车"  @click="$router.push('/car')"/>
+      <van-goods-action-button type="warning" text="加入购物车" @click="joinCar"/>
       <van-goods-action-button type="danger" text="立即购买" @click="toPay"/>
     </van-goods-action>
   </div>
@@ -42,7 +42,8 @@ export default {
       pName: "",
       pPrice2: 0,
       pPrice3: 0,
-      pCode: ''
+      pCode: '',
+      pMainPic: ''
     };
   },
   methods: {
@@ -51,6 +52,7 @@ export default {
         if (res.resultCode === 1) {
           this.pPrice3 = res.data.pPrice3
           this.pPrice2 = res.data.pPrice2
+          this.pMainPic = res.data.pMainPic
           this.pName = res.data.pName
           this.swipeImg = res.data.productDetail.filter(ele => {
             return ele.pType === 1;
@@ -64,6 +66,35 @@ export default {
     toPay() {
       // Toast('开发中...')
       this.$router.push({path:'/mallPay',query: {pCode: this.pCode}})
+    },
+    joinCar() {
+      let car = [], carList = []
+      if(localStorage.car&&localStorage.car.length!=0) {
+        car = JSON.parse(localStorage.car)
+        if(car.indexOf(Number(this.pCode)) > -1) {
+          let carList = JSON.parse(localStorage.carList)
+          console.log(carList)
+          carList.forEach(ele => {
+            if(ele.pCode == this.pCode) {
+              ele.pCount ++
+            }
+          })
+          localStorage.carList = JSON.stringify(carList)
+        }else{
+          car = JSON.parse(localStorage.car)
+          car.push(Number(this.pCode))
+          carList = JSON.parse(localStorage.carList)
+          carList.push({pCode: this.pCode,pCount: 1,pName: this.pName,pPrice2: this.pPrice2,pPrice3:this.pPrice3,pMainPic: this.pMainPic})
+           localStorage.car = JSON.stringify(car)
+          localStorage.carList = JSON.stringify(carList)
+        }
+      }else{
+        car.push(Number(this.pCode))
+        carList.push({pCode: this.pCode,pCount: 1,pName: this.pName,pPrice2: this.pPrice2,pPrice3:this.pPrice3,pMainPic: this.pMainPic})
+        localStorage.car = JSON.stringify(car)
+        localStorage.carList = JSON.stringify(carList)
+      }
+      Toast('加入购物车成功！')
     }
   },
   mounted() {

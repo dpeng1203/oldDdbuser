@@ -374,8 +374,9 @@ export default {
     }
   }
   .demo {
-    margin: 5 * @s 0 0;
+    padding: 0.266rem 0.399rem;
     display: inline-block;
+    box-sizing: border-box;
     width: 100%;
     height: auto;
     text-align: center;
@@ -383,7 +384,6 @@ export default {
     // border: 0;
     // border-radius: 4px;
     overflow: hidden;
-    background: #fff;
     position: relative;
     /* box-shadow: 0 1px 1px rgba(0, 0, 0, .2); */
   }
@@ -394,7 +394,7 @@ export default {
     transform: scale(0.6) !important;
   }
   .imgwrap {
-    margin: 10 * @s 0;
+    margin: 0.266rem 0.399rem;
   }
 }
 </style>

@@ -59,6 +59,7 @@
 
 <script>
 import { Swipe, SwipeItem, Icon, Rate } from "vant";
+import wx from 'weixin-js-sdk'; 
 export default {
   components: {
     [Swipe.name]: Swipe,
@@ -101,9 +102,55 @@ export default {
         path: "/productDesc",
         query: { pCode: item.pCode }
       });
-    }
+    },
+    wxRegister () {
+        let url = window.location.href.split('#')[0]
+        this.$api.wx.sign({url}).then(res => {
+            if(res.resultCode == 1) {
+                wx.config({
+                    debug: false,
+                    appId: res.data.appId,
+                    timestamp: res.data.timestamp,
+                    nonceStr: res.data.noncestr,
+                    signature: res.data.signature,
+                    jsApiList: [
+                        'onMenuShareTimeline',
+                        'onMenuShareAppMessage',
+                        // 'updateAppMessageShareData'
+                    ]
+                });
+                wx.ready( () => {
+                    wx.onMenuShareAppMessage({
+                        title: '【DODO优选】',                                                            // 分享标题
+                        link: 'http://xry.dodohz.com/ddbxryuser/index.html?#/mall',             // 分享链接
+                        desc: '【多多优选】致力于甄选全国好物带给多多邦广大用户以极具性价比的价格将优质商品或服务。',                                                       // 分享描述
+                        imgUrl: require('../../../assets/img/ddyx.png'),                                                           // 分享图
+                        success () {
+                            // Toast('分享成功！')
+                        },
+                        cancel () {
+                            // opstion.error()
+                        }
+                    });
+                    wx.onMenuShareTimeline({
+                        title: '【DODO优选】',                                                             // 分享标题
+                        link: 'http://xry.dodohz.com/ddbxryuser/index.html?#/mall',             // 分享链接
+                        desc: '【多多优选】致力于甄选全国好物带给多多邦广大用户以极具性价比的价格将优质商品或服务。',                                                         // 分享描述
+                        imgUrl: require('../../../assets/img/ddyx.png'),                                                           // 分享图
+                        success () {
+                            // Toast('分享成功！')
+                        },
+                        cancel () {
+                            // opstion.error()
+                        }
+                    })
+                });
+            }
+        })
+    },
   },
   mounted() {
+    this.wxRegister()
     this.getList();
   }
 };
