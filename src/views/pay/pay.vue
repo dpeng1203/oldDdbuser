@@ -119,7 +119,7 @@ export default {
                 background: #D2D2D2;
             }
             .active{
-                background: #81CF9B;
+                background: #8cdbe3;
             }
         }
         .tip{
@@ -194,7 +194,7 @@ export default {
             .btn{
                 width: 600*@s;
                 line-height: 80*@s;
-                background: #81CF9B;
+                background: #8cdbe3;
                 color: #fff;
                 border-radius: 15*@s;
             }

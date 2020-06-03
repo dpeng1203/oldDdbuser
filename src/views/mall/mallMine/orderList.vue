@@ -39,6 +39,7 @@
                 <div class="foot" >
                     <div class="btn" v-if="item.status === 0 || item.status === 3" @click="toDetail(item.pbCode,item.status)">去付款</div>
                     <div class="btn" v-if="item.status === 2 && item.pbType !== 0" @click="toLog(item.pbCode)">查看物流</div>
+                    <div class="btn" v-if="item.status === 2 && item.pbType == 1" @click="sure(item.pbCode)">确认收货</div>
                     <div class="btn" v-if="item.status === 2" @click="toDetail(item.pbCode,item.status)">查看详情</div>
                     <!-- <div class="btn" v-if="item.status === 1">去付款</div> -->
                 </div>
@@ -76,6 +77,29 @@ export default {
         }
     },
     methods: {
+        sure(pbcode) {
+            Dialog.confirm({
+                title: '提示',
+                message: '确认已收货？',
+            })
+            .then(() => {
+                let parms = {
+                    optype: 407,
+                    xrymem_token_id: localStorage.memToken,
+                    pbcode
+                }
+                this.$api.mall.order(parms).then(res => {
+                    if (res.resultCode === 1) {
+                        Toast('已确认收货！')
+                        this.$router.push('/mall')
+                    }
+                })
+                // on confirm
+            })
+            .catch(() => {
+                // on cancel
+            });
+        },
         handChange(name,title) {
             if(name === 0) {
                 this.parms.prdStatus = -1
