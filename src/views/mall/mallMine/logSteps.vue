@@ -55,8 +55,9 @@ export default {
     methods: {
         getLog() {
             let parms = {
-                opType: 237,
-                pbCode: this.pbCode
+                opType: 408,
+                pbCode: this.pbCode,
+                xrymem_token_id: localStorage.memToken
             }
             this.$api.mall.log(parms).then(res => {
                 if(res.resultCode === 1) {
