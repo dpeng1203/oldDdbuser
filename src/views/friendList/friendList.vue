@@ -20,11 +20,18 @@
                 <p>卡券数量</p>
             </div>
             <div class="wrap">
-                <div class="cont" v-for="item in list" :key="item.memCode">
-                    <p>{{item.memCode}}</p>
-                    <p>{{item.memName}}</p>
-                    <p>{{item.couponSum}}</p>
-                </div>
+                <van-list
+                    v-model="loading"
+                    :finished="finished"
+                    finished-text="没有更多了"
+                    @load="onLoad"
+                >
+                    <div class="cont" v-for="item in list" :key="item.memCode">
+                        <p>{{item.memCode}}</p>
+                        <p>{{item.memName}}</p>
+                        <p>{{item.couponSum}}</p>
+                    </div>
+                </van-list>
             </div>
             <div class="tip" v-if="num == 0">暂无邀请好友</div>
         </div>
@@ -33,31 +40,55 @@
 </template>
 
 <script>
+import { List } from 'vant';
 export default {
+    components: {
+        [List.name]: List
+    },
     data() {
         return{
+            loading: false,
+            finished: false,
             num: 0,
             list: [],
             parms: {
                 xrymem_token_id: localStorage.memToken,
                 opType: 311,
-                pageNum: 1,
-                pageSize: 100,
+                pageNum: 0,
+                pageSize: 20,
             }
         }
     },
     methods: {
         getList() {
             this.$api.ticket.merTicket(this.parms).then(res => {
+                // 加载状态结束
+                this.loading = false;
+
                 if(res.resultCode == 1) {
-                    this.list = res.data.data
-                    this.num = this.list.length
+                    this.num = res.data.total
+                    if(this.parms.pageNum === 1) {
+                        this.list =  res.data.data
+                    }else{
+                        this.list =  [...this.list,...res.data.data]
+                    }
+                    if(this.list.length >= res.data.total) {
+                        this.finished = true
+                    }
                 }
             })
-        }
+        },
+        onLoad() {
+        // 异步更新数据
+        // setTimeout 仅做示例，真实场景中一般为 ajax 请求
+            setTimeout(() => {
+                this.parms.pageNum ++
+                this.getList()
+            }, 1000);
+        },
     },
     mounted() {
-        this.getList()
+        // this.getList()
     }    
 }
 </script>
