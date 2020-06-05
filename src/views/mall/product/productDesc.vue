@@ -15,7 +15,7 @@
       <img :src="item.pPicUrl" alt v-for="item in descImg" :key="item.pOrder" />
     </div>
     <!-- <div class="btn" @click="toPay">购 买</div> -->
-    <van-goods-action>
+    <van-goods-action v-if="spStock !== 0">
       <van-goods-action-icon icon="wap-home-o" text="主页" @click="$router.push('/mall')"/>
       <van-goods-action-icon icon="cart-o" text="购物车"  @click="$router.push('/car')"/>
       <van-goods-action-button type="warning" text="加入购物车" @click="joinCar"/>
@@ -43,7 +43,8 @@ export default {
       pPrice2: 0,
       pPrice3: 0,
       pCode: '',
-      pMainPic: ''
+      pMainPic: '',
+      spStock: null,
     };
   },
   methods: {
@@ -99,6 +100,10 @@ export default {
   },
   mounted() {
     this.pCode = this.$route.query.pCode;
+    this.spStock = this.$route.query.spStock;
+    if(this.spStock === 0) {
+      Toast('此产品已售空！')
+    }
     this.getDesc(this.$route.query.pCode);
   }
 };

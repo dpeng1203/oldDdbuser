@@ -79,7 +79,7 @@
         <van-popup
             v-model="showKeyboard"
             position="top"
-            :style="{ height: '32%' }" 
+            :style="{ height: '225px' }" 
         >   
             <div class="pw-box">
                 <input type="password" pattern="[0-9]*" placeholder="请输入支付密码" v-model="value" class="pw">
@@ -360,7 +360,7 @@ export default {
                 background: #D2D2D2;
             }
             .active{
-                background: #81CF9B;
+                background: #8cdbe3;
             }
         }
         .tip{
@@ -474,7 +474,7 @@ export default {
             .btn{
                 width: 600*@s;
                 line-height: 80*@s;
-                background: #81CF9B;
+                background: #8cdbe3;
                 color: #fff;
                 border-radius: 15*@s;
             }
@@ -523,7 +523,8 @@ export default {
         .btn-pw{
             margin-top: 80*@s;
             width: 280*@s;
-            background: #89d3a2;
+            background: #8cdbe3;
+            border: none
         }
     }
 </style>

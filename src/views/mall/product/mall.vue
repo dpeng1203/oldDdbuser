@@ -18,6 +18,7 @@
       <div class="item" v-for="item in list" :key="item.pCode" >
         <img :src="item.pMainPic" alt />
         <div class="wrap">
+          <img src="../../../assets/img/shoukong.png" class="sk" alt="" v-if="item.spStock === 0">
           <p>{{item.pName}}</p>
           <div class="desc">{{item.desc}}</div>
           <div class="rate">
@@ -38,8 +39,9 @@
     </div>
     <div class="list">
       <div class="item" v-for="item in list2" :key="item.pCode" >
-        <img :src="item.pMainPic" alt />
+        <img :src="item.pMainPic" alt  />
         <div class="wrap">
+          <img src="../../../assets/img/shoukong.png" class="sk" alt="" v-if="item.spStock === 0">
           <p>{{item.pName}}</p>
           <div class="desc">{{item.desc}}</div>
           <div class="rate">
@@ -100,7 +102,7 @@ export default {
     toDesc(item) {
       this.$router.push({
         path: "/productDesc",
-        query: { pCode: item.pCode }
+        query: { pCode: item.pCode,spStock: item.spStock }
       });
     },
     wxRegister () {
@@ -177,11 +179,20 @@ export default {
     border-bottom: 1px solid #eee;
     .wrap{
       padding: 0 40*@s 0 30*@s;
+      position: relative;
     }
+
     img{
       width: 100%;
       height: 351*@s;
     }
+    .sk{
+        position: absolute;
+        top: 30*@s;
+        right: 100*@s;
+        width: 144*@s;
+        height: 126*@s;
+      }
     p {
       margin-top: 40 * @s;
       font-size: 28 * @s;
