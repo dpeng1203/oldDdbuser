@@ -102,6 +102,28 @@ export default {
                 if(res.resultCode ===1) {
                     // let pbCode = res.data.pbCode
                     // this.pay(pbCode)
+                    // 购物车清除已下单商品
+                    let arr = []
+                    this.list.forEach(ele => {
+                        arr.push(ele.pCode)
+                    })
+                    let carList = JSON.parse(localStorage.carList)
+                    carList = carList.filter(ele => {
+                        return !arr.includes(ele.pCode)
+                    })
+                    console.log(carList)
+                    if(carList.length == 0) {
+                        localStorage.removeItem('carList')
+                        localStorage.removeItem('car')
+                    }else {
+                        localStorage.carList = JSON.stringify(carList)
+                        let car = []
+                        carList.forEach(ele => {
+                            car.push(ele.pCode)
+                        })
+                        localStorage.car = JSON.stringify(car)
+                    }
+                    
                 }
             })
         },

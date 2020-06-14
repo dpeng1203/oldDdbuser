@@ -224,8 +224,7 @@ export default new Router({
         name: 'car',
         component: () => import("./views/mall/car/car.vue"),
         meta: {
-          title: '购物车',
-          keepAlive: true
+          title: '购物车'
         }
       },
       {

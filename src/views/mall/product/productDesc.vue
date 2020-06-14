@@ -70,7 +70,7 @@ export default {
     },
     joinCar() {
       let car = [], carList = []
-      if(localStorage.car&&localStorage.car.length!=0) {
+      if(localStorage.car&& (JSON.parse(localStorage.car)).length!=0) {
         car = JSON.parse(localStorage.car)
         if(car.indexOf(Number(this.pCode)) > -1) {
           let carList = JSON.parse(localStorage.carList)

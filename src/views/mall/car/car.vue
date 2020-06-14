@@ -95,7 +95,9 @@ export default {
     if(localStorage.carList) {
       arr = JSON.parse(localStorage.carList)
     }
+    console.log(arr)
     if(arr&&arr.length!=0){
+      console.log(1111)
       arr.forEach(ele => {
         ele.check = false
       });
