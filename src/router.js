@@ -229,6 +229,14 @@ export default new Router({
         }
       },
       {
+        path: '/carPay',
+        name: 'carPay',
+        component: () => import("./views/mall/car/carPay.vue"),
+        meta: {
+          title: '订单支付'
+        }
+      },
+      {
         path: '/mallMine',
         name: 'mallMine',
         component: () => import("./views/mall/mallMine/mallMine.vue"),

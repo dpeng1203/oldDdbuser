@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import { Tab, Tabs, Icon, List } from 'vant';
+import { Tab, Tabs, Icon, List, Toast, Dialog } from 'vant';
 export default {
     components: {
         [Tab.name]: Tab,

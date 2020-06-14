@@ -19,7 +19,11 @@ export default {
     },
     methods: {
         out() {
-            localStorage.clear()
+            // localStorage.clear()
+            localStorage.removeItem('memName')
+            localStorage.removeItem('memId')
+            localStorage.removeItem('memToken')
+            localStorage.removeItem('phone')
             window.location.href = 'http://xry.dodohz.com/ddbxryuser/index.html#/'
             // this.$router.push('/')
         },

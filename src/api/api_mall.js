@@ -32,4 +32,8 @@ export default {
      //物流
      log: p => $.get('/zqxry/shopping/service', p),
 
+     //购物车支付
+     carPay: p => $.post('/zqxry/shopping/addCartOrder', p)
+
+
 }

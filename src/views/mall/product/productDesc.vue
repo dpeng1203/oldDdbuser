@@ -85,13 +85,13 @@ export default {
           car = JSON.parse(localStorage.car)
           car.push(Number(this.pCode))
           carList = JSON.parse(localStorage.carList)
-          carList.push({pCode: this.pCode,pCount: 1,pName: this.pName,pPrice2: this.pPrice2,pPrice3:this.pPrice3,pMainPic: this.pMainPic})
+          carList.push({pCode: Number(this.pCode),pCount: 1,pName: this.pName,pPrice2: this.pPrice2,pPrice3:this.pPrice3,pMainPic: this.pMainPic})
            localStorage.car = JSON.stringify(car)
           localStorage.carList = JSON.stringify(carList)
         }
       }else{
         car.push(Number(this.pCode))
-        carList.push({pCode: this.pCode,pCount: 1,pName: this.pName,pPrice2: this.pPrice2,pPrice3:this.pPrice3,pMainPic: this.pMainPic})
+        carList.push({pCode: Number(this.pCode),pCount: 1,pName: this.pName,pPrice2: this.pPrice2,pPrice3:this.pPrice3,pMainPic: this.pMainPic})
         localStorage.car = JSON.stringify(car)
         localStorage.carList = JSON.stringify(carList)
       }

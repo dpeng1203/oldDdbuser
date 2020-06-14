@@ -65,7 +65,17 @@ export default {
   },
   methods: {
    onSubmit() {
-     Toast('敬请等候...')
+    //  Toast('敬请等候...')
+     let arr = this.list.filter(ele => {
+       return ele.check
+     })
+     if( arr.length != 0 ) {
+       localStorage.carPayList = JSON.stringify(arr)
+      this.$router.push('/carPay')
+     } else (
+       Toast('还没有要买的商品！')
+     )
+     
    },
    selAll() {
       if(this.checked) {

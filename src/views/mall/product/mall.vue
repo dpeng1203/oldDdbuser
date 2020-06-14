@@ -90,6 +90,22 @@ export default {
               ele.desc = JSON.parse(ele.pDesc)[0].desc;
             }
           });
+          let spStockList = []
+          res.data.data.forEach(ele => {
+            if(ele.spStock === 0) {
+              spStockList.push(ele.pCode)
+            }
+          })
+          console.log(spStockList)
+          // 清楚购物车为空商品
+          if(localStorage.carList) {
+            let carList = JSON.parse(localStorage.carList)
+            carList = carList.filter(ele => {
+              return !spStockList.includes(Number(ele.pCode))
+            })
+            console.log(carList)
+            localStorage.carList = JSON.stringify(carList)
+          }
           this.list = res.data.data.filter(ele => {
             return ele.pType === 0
           });
