@@ -92,7 +92,7 @@ export default {
                 if(res.resultCode === 1) {
                     this.daName = res.data.daName
                     this.daMobile = res.data.daMobile
-                    this.aAddress = res.data.aAddress
+                    this.aAddress = res.data.daAddress
                     this.pCount = res.data.pCount
                     this.price = res.data.price
                     this.getProDetail(res.data.pCode)

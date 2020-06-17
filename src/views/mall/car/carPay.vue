@@ -123,16 +123,17 @@ export default {
                         })
                         localStorage.car = JSON.stringify(car)
                     }
-                    
+                    let pbCode = res.data
+                    this.pay(pbCode)
                 }
             })
         },
         pay(pbCode) {
             let parms = {
                 priceType: 0,
-                pbCode
+                cartId: pbCode
             }
-            this.$api.mall.orderPay(parms).then(res => {
+            this.$api.mall.orderCarPay(parms).then(res => {
                 if(res.resultCode ===1) {
                     window.location.href = res.msg
                 }

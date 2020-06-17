@@ -29,6 +29,9 @@ export default {
      // 支付订单
      orderPay: p => $.get('/zqxry/payPbBill', p),
 
+     // 购物车支付订单
+     orderCarPay: p => $.get('/zqxry/payPbBillCart', p),
+
      //物流
      log: p => $.get('/zqxry/shopping/service', p),
 
