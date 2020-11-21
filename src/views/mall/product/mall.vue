@@ -11,28 +11,7 @@
         <img src="../../../assets/img/swipe_3.png" alt />
       </van-swipe-item>
     </van-swipe>
-    <div class="img-title">
-      <img src="../../../assets/img/ddzx.png" alt="">
-    </div>
-    <div class="list">
-      <div class="item" v-for="item in list" :key="item.pCode" >
-        <img :src="item.pMainPic" alt />
-        <div class="wrap">
-          <img src="../../../assets/img/shoukong.png" class="sk" alt="" v-if="item.spStock === 0">
-          <p>{{item.pName}}</p>
-          <div class="desc">{{item.desc}}</div>
-          <div class="rate">
-            <span>商品热度</span>
-            <van-rate v-model="value" />
-          </div>
-          <div class="o-price">￥ {{item.pPrice1}}</div>
-          <div class="btn">
-            <div class="price"><span class="coin">￥</span>{{item.pPrice3}} <span>[DODO优选价]</span> </div>
-            <div class="buy-btn" @click="toDesc(item)">马上抢购</div>
-          </div>
-        </div>
-      </div>
-    </div>
+
     <!-- 多多甄选 -->
     <div class="img-title" style="marginTop: .133rem" v-if="list2.length!==0">
       <img src="../../../assets/img/mall_list_title.png" alt="">
@@ -56,6 +35,31 @@
         </div>
       </div>
     </div>
+
+
+    <div class="img-title">
+      <img src="../../../assets/img/ddzx.png" alt="">
+    </div>
+    <div class="list">
+      <div class="item" v-for="item in list" :key="item.pCode" >
+        <img :src="item.pMainPic" alt />
+        <div class="wrap">
+          <img src="../../../assets/img/shoukong.png" class="sk" alt="" v-if="item.spStock === 0">
+          <p>{{item.pName}}</p>
+          <div class="desc">{{item.desc}}</div>
+          <div class="rate">
+            <span>商品热度</span>
+            <van-rate v-model="value" />
+          </div>
+          <div class="o-price">￥ {{item.pPrice1}}</div>
+          <div class="btn">
+            <div class="price"><span class="coin">￥</span>{{item.pPrice3}} <span>[DODO优选价]</span> </div>
+            <div class="buy-btn" @click="toDesc(item)">马上抢购</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
   </div>
 </template>
 
