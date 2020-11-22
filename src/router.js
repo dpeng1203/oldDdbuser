@@ -303,5 +303,13 @@ export default new Router({
         title: '物流信息',
       }
     },
+    {
+      path: '/payInfo',
+      name: 'payInfo',
+      component: () => import("./views/mall/product/payInfo.vue"),
+      meta: {
+        title: '支付详情',
+      }
+    }
   ]
 })

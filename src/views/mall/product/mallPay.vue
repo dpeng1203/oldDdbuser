@@ -125,15 +125,21 @@ export default {
             })
         },
         pay(pbCode) {
-            let parms = {
-                priceType: 0,
-                pbCode
-            }
-            this.$api.mall.orderPay(parms).then(res => {
-                if(res.resultCode ===1) {
-                    window.location.href = res.msg
+            
+            if(this.total > 5000) {
+                this.$router.push({path: '/payInfo',query: {pbCode}})
+            }else {
+                let parms = {
+                    priceType: 0,
+                    pbCode
                 }
-            })
+                this.$api.mall.orderPay(parms).then(res => {
+                    if(res.resultCode ===1) {
+                        window.location.href = res.msg
+                    }
+                })
+            }
+            
         },
         chooseAddr() {
             this.showAreaList = true

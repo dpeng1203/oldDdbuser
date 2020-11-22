@@ -2,6 +2,7 @@
 node_modules
 /dist
 htdocs
+/htdocs
 # local env files
 .env.local
 .env.*.local

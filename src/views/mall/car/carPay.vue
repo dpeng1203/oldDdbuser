@@ -163,7 +163,7 @@ export default {
             let obj = {}
             obj.pCode = ele.pCode
             obj.pCount = ele.pCount
-            obj.price =Number((ele.pCount * ele.pPrice3).toFixed(2)) 
+            obj.price = ele.pPrice3
             return obj
         })
         this.allTotal = this.allTotal.toFixed(2)

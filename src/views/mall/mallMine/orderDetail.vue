@@ -72,15 +72,20 @@ export default {
     },
     methods: {
         onSubmit() {
-            let parms = {
-                priceType: 0,
-                pbCode: this.pbCode
-            }
-            this.$api.mall.orderPay(parms).then(res => {
-                if(res.resultCode ===1) {
-                    window.location.href = res.msg
+            if(this.item.pPrice3*this.pCount > 5000) {
+                 this.$router.push({path: '/payInfo',query: {pbCode: this.pbCode}})
+            }else{
+                let parms = {
+                    priceType: 0,
+                    pbCode: this.pbCode
                 }
-            })
+                this.$api.mall.orderPay(parms).then(res => {
+                    if(res.resultCode ===1) {
+                        window.location.href = res.msg
+                    }
+                })
+            }
+            
         },
         getDetail(pbCode) {
             let parms = {

@@ -36,7 +36,14 @@ export default {
      log: p => $.get('/zqxry/shopping/service', p),
 
      //购物车支付
-     carPay: p => $.post('/zqxry/shopping/addCartOrder', p)
+     carPay: p => $.post('/zqxry/shopping/addCartOrder', p),
+
+      //获取支付详情
+      prdBillPartPayInfo: p => $.get('/zqxry/shopping/getPrdBillPartPayInfo', p),
+
+       //分布支付
+       prdBillpay: p => $.get('/zqxry/payPbBill2', p),
+
 
 
 }
