@@ -5,7 +5,7 @@
                 <div class="name">支付详情</div>
             </div>
             <div class="item">
-                <div class="name">商品总格：</div>
+                <div class="name">商品总价：</div>
                 <div class="value" >￥{{needPaySum}}</div>
             </div>
             <div class="item">
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { Field } from 'vant';
+import { Field, Toast } from 'vant';
 export default {
     components: {
         [Field.name]: Field
@@ -47,13 +47,17 @@ export default {
             this.$api.mall.prdBillPartPayInfo({ pbCode: this.pbCode }).then(res => {
                 console.log(res)
                 if(res.resultCode === 1) {
-                    this.paidSum = res.data.paidSum
-                    this.needPaySum = res.data.needPaySum
+                    this.paidSum = res.data.paidSum.toFixed(2)
+                    this.needPaySum = res.data.needPaySum.toFixed(2)
                     this.needPay = (res.data.needPaySum - res.data.paidSum).toFixed(2)
                 }
             })
         },
         pay() {
+            if(!this.value) {
+                Toast('请输入金额！')
+                return
+            }
             let parms = {
                 priceType: 0,
                 pbCode: this.pbCode,
