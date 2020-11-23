@@ -4,17 +4,17 @@
             <div class="item">
                 <div class="name">支付详情</div>
             </div>
-            <!-- <div class="item">
+            <div class="item">
                 <div class="name">商品总格：</div>
-                <div class="value" >￥{{allTotal}}</div>
-            </div> -->
+                <div class="value" >￥{{needPaySum}}</div>
+            </div>
             <div class="item">
                 <div class="name">已支付：</div>
                 <div class="value" >￥{{paidSum}}</div>
             </div>
             <div class="item">
                 <div class="name">待支付：</div>
-                <div class="value">￥{{needPaySum}}</div>
+                <div class="value">￥{{needPay}}</div>
             </div>
         </div>
         <div style="marginTop: .4rem">
@@ -37,6 +37,7 @@ export default {
             allTotal: '',
             paidSum: '',
             needPaySum: '',
+            needPay: '',
             total: '',
             value: ''
         }
@@ -48,6 +49,7 @@ export default {
                 if(res.resultCode === 1) {
                     this.paidSum = res.data.paidSum
                     this.needPaySum = res.data.needPaySum
+                    this.needPay = (res.data.needPaySum - res.data.paidSum).toFixed(2)
                 }
             })
         },
@@ -58,15 +60,27 @@ export default {
                 paySum: this.value
             }
             this.$api.mall.prdBillpay(parms).then(res => {
-                    if(res.resultCode ===1) {
-                        window.location.href = res.msg
-                    }
-                })
+                if(res.resultCode ===1) {
+                    window.location.href = res.msg
+                }
+            })
+        },
+        getPayList() {
+            let parms = {
+                opType: 242,
+                pbCode: this.pbCode,
+            }
+            this.$api.mall.prdBillpayList(parms).then(res => {
+                if(res.resultCode ===1) {
+                    window.location.href = res.msg
+                }
+            })
         }
     },
     mounted() {
         this.pbCode = this.$route.query.pbCode
         this.getPayInfo()
+        this.getPayList()
     }
 
 }
