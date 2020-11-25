@@ -310,6 +310,14 @@ export default new Router({
       meta: {
         title: '支付详情',
       }
+    },
+    {
+      path: '/payInfoRecord',
+      name: 'payInfoRecord',
+      component: () => import("./views/mall/product/payInfoRecord.vue"),
+      meta: {
+        title: '支付记录',
+      }
     }
   ]
 })

@@ -3,6 +3,7 @@
         <div class="sum">
             <div class="item">
                 <div class="name">支付详情</div>
+                <div class="value record" @click="toRecord">支付记录</div>
             </div>
             <div class="item">
                 <div class="name">商品总价：</div>
@@ -53,6 +54,9 @@ export default {
                 }
             })
         },
+        toRecord() {
+            this.$router.push({path: '/payInfoRecord',query: {pbCode: this.pbCode}})
+        },
         pay() {
             if(!this.value) {
                 Toast('请输入金额！')
@@ -69,22 +73,11 @@ export default {
                 }
             })
         },
-        getPayList() {
-            let parms = {
-                opType: 242,
-                pbCode: this.pbCode,
-            }
-            this.$api.mall.prdBillpayList(parms).then(res => {
-                if(res.resultCode ===1) {
-                    window.location.href = res.msg
-                }
-            })
-        }
+        
     },
     mounted() {
         this.pbCode = this.$route.query.pbCode
         this.getPayInfo()
-        this.getPayList()
     }
 
 }
@@ -105,6 +98,11 @@ export default {
             // padding-top: 35*@s;
             .name{
                 flex: 1;
+            }
+            .record{
+                color: #FF0101;
+                font-weight: normal;
+                font-size: 28*@s;
             }
             input{
                 width: 490*@s;

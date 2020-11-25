@@ -45,7 +45,7 @@ export default {
        prdBillpay: p => $.get('/zqxry/payPbBill2', p),
 
      //分布支付
-     prdBillpayList: p => $.get('/zqxry/bizqry', p),
+     prdBillpayList: p => $.get('/zqxry/shopping/service', p),
 
 
 
