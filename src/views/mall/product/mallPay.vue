@@ -117,6 +117,9 @@ export default {
                 daCode: this.addrInfo.daCode,
                 xrymem_token_id: localStorage.memToken
             };
+            if(localStorage.memberProm) {
+                parms.memberProm = localStorage.memberProm
+            }
             this.$api.mall.order(parms).then( res => {
                 if(res.resultCode ===1) {
                     let pbCode = res.data.pbCode

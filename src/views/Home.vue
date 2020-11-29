@@ -62,6 +62,11 @@
 			</div>
 		</div>
 		<div class="cont">
+			<div class="item" @click="$router.push('/qrcode')">
+				<img src="../assets/img/home_7.png" alt="" class="pw">
+				<span>推荐二维码</span>
+				<img src="../assets/img/home_10.png" alt="">
+			</div>
 			<div class="item" @click="$router.push('/mall')">
 				<img src="../assets/img/home_7.png" alt="" class="pw">
 				<span>DODO优选</span>

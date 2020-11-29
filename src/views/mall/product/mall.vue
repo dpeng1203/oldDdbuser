@@ -172,6 +172,12 @@ export default {
     },
   },
   mounted() {
+    if(this.$route.query.memCode) {
+      localStorage.memberProm = this.$route.query.memCode
+      if(!localStorage.memToken) {
+        this.$router.push('/')
+      }
+    }
     this.wxRegister()
     this.getList();
   }
