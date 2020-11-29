@@ -318,6 +318,13 @@ export default new Router({
       meta: {
         title: '支付记录',
       }
+    }, {
+      path: '/qrcode',
+      name: 'qrcode',
+      component: () => import("./views/mall/product/qrcode.vue"),
+      meta: {
+        title: '推荐二维码',
+      }
     }
   ]
 })

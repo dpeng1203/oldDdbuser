@@ -61,7 +61,12 @@ export default {
             localStorage.phone = this.phone;
             localStorage.memName = res.data.member.memName;
             localStorage.memId = res.data.member.memCode;
-            this.$router.push("/home");
+            if(localStorage.memberProm) {
+              this.$router.push('/mall')
+            }else{
+              this.$router.push("/home");
+            }
+            
           }
         });
       }
