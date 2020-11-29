@@ -64,7 +64,7 @@
 </template>
 
 <script>
-import { Swipe, SwipeItem, Icon, Rate } from "vant";
+import { Swipe, SwipeItem, Icon, Rate, Dialog } from "vant";
 import wx from 'weixin-js-sdk'; 
 export default {
   components: {
@@ -175,7 +175,13 @@ export default {
     if(this.$route.query.memCode) {
       localStorage.memberProm = this.$route.query.memCode
       if(!localStorage.memToken) {
-        this.$router.push('/')
+        Dialog.alert({
+          title: '提示',
+          message: '还未登录，请先去登录',
+        }).then(() => {
+          this.$router.push('/')
+        });
+        
       }
     }
     this.wxRegister()
