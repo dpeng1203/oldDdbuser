@@ -157,7 +157,7 @@ export default {
             })
         },
         toDetail(pbCode,status,tatol) {
-            if(Number(tatol) > 5000 && status == 0) {
+            if(Number(tatol) > 1 && status == 0) {
                 this.$router.push({path: '/payInfo',query: {pbCode}})
             }else{
                 this.$router.push({path: '/orderDetail',query: {pbCode,status}})
