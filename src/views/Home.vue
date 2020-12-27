@@ -62,7 +62,7 @@
 			</div>
 		</div>
 		<div class="cont">
-			<div class="item" @click="$router.push('/qrcode')">
+			<div class="item" @click="toQrcode">
 				<img src="../assets/img/home_7.png" alt="" class="pw">
 				<span>推荐二维码</span>
 				<img src="../assets/img/home_10.png" alt="">
@@ -93,6 +93,7 @@
 </template>
 
 <script>
+import { Toast } from 'vant'
 	// @ is an alias to /src
 
 	export default {
@@ -113,6 +114,20 @@
 			}
 		},
 		methods: {
+			toQrcode() {
+				let data = {
+					xrymem_token_id: localStorage.memToken,
+					opType: 317,
+				}
+				this.$api.ticket.merTicket(data).then( res => {
+					if(res.data && res.data > 0) {
+						this.$router.push('/qrcode')
+					}else{
+						Toast('暂无相应代理账号，无推荐二维码')
+					}
+				})
+				
+			},
 			refuel() {
 				window.location.href = 'https://st.czb365.com/v3_prod/?pft=98643999'
 			},	
