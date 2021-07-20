@@ -137,7 +137,7 @@ export default {
     position: relative;
     .qr-cont{
         position: absolute;
-        top: 1070*@s;
+        top: 1120*@s;
         left: 0;
         right: 0;
         text-align: center;

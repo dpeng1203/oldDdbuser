@@ -3,7 +3,8 @@ let hostName;
 
 if (process.env.NODE_ENV === "development") {
     // hostName = '/'; //测试
-    hostName = '/api'
+    // hostName = '/api'
+    hostName = "http://xry.dodohz.com"
 } else {
     hostName = window.location.origin
     // hostName = 'http://xry.dodohz.com'
