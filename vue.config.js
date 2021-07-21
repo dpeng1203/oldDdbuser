@@ -14,7 +14,7 @@ module.exports = {
             '/api': {
                 // target: 'http://localhost',
                 target: 'http://xry.dodohz.com/',
-                // target: 'http://192.168.0.200',
+                // target: 'http://60.186.28.1:10001',
                 ws: true,
                 changeOrigin: true,
                 pathRewrite: {

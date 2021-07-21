@@ -129,7 +129,7 @@ export default {
         },
         pay(pbCode) {
             
-            if(this.total > 5000) {
+            if(this.total > 1) {
                 this.$router.push({path: '/payInfo',query: {pbCode}})
             }else {
                 let parms = {

@@ -72,7 +72,7 @@ export default {
     },
     methods: {
         onSubmit() {
-            if(this.item.pPrice3*this.pCount > 5000) {
+            if(this.item.pPrice3*this.pCount > 1) {
                  this.$router.push({path: '/payInfo',query: {pbCode: this.pbCode}})
             }else{
                 let parms = {
