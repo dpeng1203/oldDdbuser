@@ -25,6 +25,14 @@ export default new Router({
       }
     },
     {
+      path: '/register',
+      name: 'register',
+      component: () => import('./views/login/register.vue'),
+      meta: {
+        title: '注册'
+      }
+    },
+    {
       path: '/resetPw',
       name: 'resetPw',
       component: () => import('./views/login/resetPw.vue'),
